@@ -10,7 +10,6 @@ const dia2=[squareIdArray[2], squareIdArray[4], squareIdArray[6]];
 const lines=[row1, row2, row3, col1, col2, col3, dia1, dia2]
 const grid = document.querySelector(".grid");
 const intro = document.querySelector(".intro");
-const winText = document.querySelector(".winText");
 const newGame=document.querySelector(".new-game");
 let gridSquare = "";
 let squareId = "";
@@ -43,12 +42,11 @@ function startTurn() {
 }
 
 function placeTile(tile) {
-    console.log("tile in placetile,", tile);
     let selectedTile = document.querySelector(tile);
-    if (turn == "Player1") {
+    if (turn == "Player1"&&selectedTile.innerText==="") {
         selectedTile.innerText = "X";
     }
-    else { selectedTile.innerText = "Y" }
+    else if(turn == "Player2"&&selectedTile.innerText==="") { selectedTile.innerText = "Y" }
     playerSwitch();
     getWinMatrix();
 }
@@ -78,30 +76,35 @@ tempIcon=[]
 }
 }
 
+//checks rows / columns / diagonals in array to see if three values in one of these match
 function checkWinner(){
     if(tempIcon.every((val, i, arr)=>val===arr[0]==true)&&!tempIcon[0]==""&&tempIcon.length==3){
-        if (tempIcon[0]==="X"){winner="Player1"; 
-        winText.innerText = "Player 1 Wins!!!";
+        if (tempIcon[0]==="X"&&won==false){winner="Player1"; 
+        intro.innerText = "Player 1 Wins!!!";
         won=true}     
-        if(tempIcon[0]=="Y"){winner="Player2";
-        winText.innerText = "Player 2 Wins!!!";
+        if(tempIcon[0]=="Y" &&won==false){winner="Player2";
+        intro.innerText = "Player 2 Wins!!!";
         won=true}
     }
 }
 
+//if no-one has one checks to see if all squares populated. In this case it is a draw
 function checkTie(){
     if(squareIdArray.every((val, i, arr)=>document.querySelector(val).innerText!="")&&won!=true){
-        winText.innerText = "You Have a Draw!"
+        console.log("Draw")
+        intro.innerText = "You Have a Draw!"
     }
 }
-console.log("lines", lines)
 
+//starts new game if new game button clicked
 newGame.addEventListener("click", startNew);
 
 function startNew(){
-    winText.innerText="";
+    //winText.innerText="";
     squareIdArray.forEach((sq)=>document.querySelector(sq).innerText="");
     player="Player1";
+    won=false;
+    winner="";
     intro.innerText = "Player 1, Please Click on a Square to Place Your X";
     startTurn();
 }
