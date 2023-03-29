@@ -11,9 +11,9 @@ const lines=[row1, row2, row3, col1, col2, col3, dia1, dia2]
 const grid = document.querySelector(".grid");
 const intro = document.querySelector(".intro");
 const winText = document.querySelector(".winText");
+const newGame=document.querySelector(".new-game");
 let gridSquare = "";
 let squareId = "";
-
 let turn = "Player1";
 let won = false;
 let winner=""
@@ -28,16 +28,14 @@ for (i = 0; i < 9; i++) {
     grid.appendChild(gridSquare);
 }
 
-
+//Begin game
 startTurn()
-document.querySelectorAll(".gridSquare").forEach((a) => console.log(a.getAttribute("id")))
 
 
 function startTurn() {
     for (let i = 0; i < squareIdArray.length; i++) {
         document.querySelector(squareIdArray[i])
             .addEventListener("click", function () {
-                console.log("say what clicked 1st", squareIdArray[i]);
                 let tile = squareIdArray[i];
                 placeTile(tile);
             })
@@ -83,18 +81,33 @@ tempIcon=[]
 function checkWinner(){
     if(tempIcon.every((val, i, arr)=>val===arr[0]==true)&&!tempIcon[0]==""&&tempIcon.length==3){
         if (tempIcon[0]==="X"){winner="Player1"; 
-        winText.innerText = "Player 1 Wins!!!"}     
+        winText.innerText = "Player 1 Wins!!!";
+        won=true}     
         if(tempIcon[0]=="Y"){winner="Player2";
-        winText.innerText = "Player 2 Wins!!!"}
+        winText.innerText = "Player 2 Wins!!!";
+        won=true}
     }
 }
 
 function checkTie(){
-    if(squareIdArray.every((val, i, arr)=>document.querySelector(val).innerText!="")){
+    if(squareIdArray.every((val, i, arr)=>document.querySelector(val).innerText!="")&&won!=true){
         winText.innerText = "You Have a Draw!"
     }
 }
 console.log("lines", lines)
+
+newGame.addEventListener("click", startNew);
+
+function startNew(){
+    winText.innerText="";
+    squareIdArray.forEach((sq)=>document.querySelector(sq).innerText="");
+    player="Player1";
+    intro.innerText = "Player 1, Please Click on a Square to Place Your X";
+    startTurn();
+}
+
+
+//Start new game
 //console.log(squareIdArray[0])
 
 //for i in [row1, row2, row3]
