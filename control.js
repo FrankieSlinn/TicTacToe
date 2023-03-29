@@ -36,7 +36,7 @@ function startTurn() {
         document.querySelector(squareIdArray[i])
             .addEventListener("click", function () {
                 let tile = squareIdArray[i];
-                placeTile(tile);
+                if(won==false){placeTile(tile)};
             })
     }
 }
@@ -87,6 +87,7 @@ function checkWinner(){
         won=true}
     }
 }
+
 
 //if no-one has one checks to see if all squares populated. In this case it is a draw
 function checkTie(){
