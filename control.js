@@ -71,26 +71,29 @@ function playerSwitch() {
 //populates arrays where winner can be checked via the checkWinner function
 function getWinMatrix(){
 for(i=0; i<lines.length; i++){
-    for(j=0; j<3; j++){
-       // console.log("linesij", lines[i][j], document.querySelector(lines[i][j]).innerText)
-        
+    for(j=0; j<3; j++){  
         tempIcon.push(document.querySelector(lines[i][j]).innerText);
     console.log(tempIcon)}
     checkWinner();
+    checkTie();
 tempIcon=[]
 }
-
 }
 
 function checkWinner(){
     if(tempIcon.every((val, i, arr)=>val===arr[0]==true)&&!tempIcon[0]==""&&tempIcon.length==3){
         if (tempIcon[0]==="X"){winner="Player1"; 
-        winText.innerText = "Player 1 wins!!!"}     
+        winText.innerText = "Player 1 Wins!!!"}     
         if(tempIcon[0]=="Y"){winner="Player2";
-        winText.innerText = "Player 2 wins!!!"}
+        winText.innerText = "Player 2 Wins!!!"}
     }
 }
 
+function checkTie(){
+    if(squareIdArray.every((val, i, arr)=>document.querySelector(val).innerText!="")){
+        winText.innerText = "You Have a Draw!"
+    }
+}
 console.log("lines", lines)
 //console.log(squareIdArray[0])
 
