@@ -11,6 +11,24 @@ const lines=[row1, row2, row3, col1, col2, col3, dia1, dia2]
 const grid = document.querySelector(".grid");
 const intro = document.querySelector(".intro");
 const newGame=document.querySelector(".new-game");
+//Scores
+const P1Wins=document.querySelector(".P1Wins");
+const P2Wins=document.querySelector(".P2Wins");
+const P1Losses=document.querySelector(".P1Losses");
+const P2Losses=document.querySelector(".P2Losses");
+const P1Draws=document.querySelector(".P1Draws");
+const P2Draws=document.querySelector(".P2Draws");
+let drawCount=0;
+P1Draws.innerText=drawCount;
+P2Draws.innerText=drawCount;
+let P1WinCount=0;
+let P2WinCount=0;
+P1Wins.innerText=P1WinCount;
+P2Wins.innerText=P2WinCount;
+let P1LossCount=0;
+let P2LossCount=0;
+P1Losses.innerText=P1WinCount;
+P2Losses.innerText=P2WinCount;
 let gridSquare = "";
 let squareId = "";
 let turn = "Player1";
@@ -42,7 +60,6 @@ function startTurn() {
 }
 
 function placeTile(tile) {
-    console.log("turn in placeTile", turn)
     let selectedTile = document.querySelector(tile);
     if (turn == "Player1"&&selectedTile.innerText==="") {
         selectedTile.innerText = "X";
@@ -76,29 +93,48 @@ for(i=0; i<lines.length; i++){
         tempIcon.push(document.querySelector(lines[i][j]).innerText);
     }
     checkWinner();
-    checkTie();
+   
 tempIcon=[]
 }
+checkTie()
 }
 
 //checks rows / columns / diagonals in array to see if three values in one of these match
 function checkWinner(){
-    if(tempIcon.every((val, i, arr)=>val===arr[0]==true)&&!tempIcon[0]==""&&tempIcon.length==3){
+    if(tempIcon.every((val, i, arr)=>val===arr[0]==true)&&!tempIcon[0]==""&&tempIcon.length==3&&won==false){
         if (tempIcon[0]==="X"&&won==false){winner="Player1"; 
         intro.innerText = "Player 1 Wins!!!";
+        P1WinCount+=1;
+        P1Wins.innerText=P1WinCount;
+        P2LossCount+=1;
+        P2Losses.innerText=P2LossCount;
         won=true}     
         if(tempIcon[0]=="O" &&won==false){winner="Player2";
         intro.innerText = "Player 2 Wins!!!";
+        P2WinCount+=1;
+        P2Wins.innerText=P2WinCount;
+        P1LossCount+=1;
+        P1Losses.innerText=P1LossCount;
+        console.log("P1 loss count", P1LossCount);
         won=true}
     }
+   
 }
 
 
 //if no-one has one checks to see if all squares populated. In this case it is a draw
 function checkTie(){
+    if(draw===false){
     if(squareIdArray.every((val, i, arr)=>document.querySelector(val).innerText!="")&&won!=true){
-        intro.innerText = "You Have a Draw!"
+        console.log("all squares filled", squareIdArray.every((val, i, arr)=>document.querySelector(val).innerText!=""));
+        intro.innerText = "You Have a Draw!";
+        drawCount+=1;
+        console.log("drawCount", drawCount)
+P1Draws.innerText=drawCount;
+P2Draws.innerText=drawCount;
+        draw=true;
     }
+}
 }
 
 //starts new game if new game button clicked
@@ -108,65 +144,15 @@ function startNew(){
     //winText.innerText="";
     squareIdArray.forEach((sq)=>document.querySelector(sq).innerText="");
     turn="Player1";
-    console.log("turn after startnew", turn)
     won=false;
+    draw=false;
     winner="";
     intro.innerText = "Player 1, Please Click on a Square to Place Your X";
     startTurn();
 }
 
 
-//Start new game
-//console.log(squareIdArray[0])
 
-//for i in [row1, row2, row3]
-//for j in row1[j] if j.value==x then
-
-/*
-function winCriteria(){
-    if(squareId.innerText==#gridSquare2.innerText==gridSquare3.innerText&&#gridSquare1.innerText!=""||
-    #gridSquare4.innerText==#gridSquare5.innerText==gridSquare6.innerText&&#gridSquare4.innerText!=""||
-    #gridSquare7.innerText==#gridSquare8.innerText==gridSquare9.innerText&&#gridSquare7.innerText!=""){
-        console.log("Winner!")
-       winText.innerText="You Won!!!"
-
-}*/
-
-/*
-function submitValue() {
-  for (let i = 0; i < buttonClasses.length; i++) {
-    document
-      .querySelector(buttonClasses[i])
-      .addEventListener("click", function () {
-        //console.log("submitting value", document.querySelector(buttonClasses[i]))
- 
-        buttonClicked = i + 1;
- 
-        getInputValue();
-      });
-  }
-}*/
-
-/*
-
-function placeIcon(id){
- console.log("placeIcon function running")
- console.log("id", id);
- if(turn=="Player1"){
- document.querySelector(id).innerText = "X"}
- else{document.querySelector(id)="Y"}
-
-}*/
-
-/*
-
-        document.querySelectorAll(".gridSquare").forEach((sq)=>{
-            squareId= gridSquare.getAttribute("id"); })
-            console.log("Squareid in function", squareId)
-            function(document.querySelector("#squareId"))=>{
-            sqid.addEventListener("click", function(){
-            console.log("squareId", squareId)
-            document.querySelector("#squareId").innerText = "X"})*/
 
 
 
