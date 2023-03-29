@@ -1,0 +1,30 @@
+body{
+    text-align: center;
+}
+.intro{
+    margin-bottom: 2rem;
+}
+.grid{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 0.1rem solid #222;
+    height: 30rem;
+    width: 30rem;
+
+}
+.grid-container{
+    display: flex;
+    justify-content: center;
+}
+.gridSquare{
+    border: 0.3rem solid #222;
+}
+main{
+    display: flex;
+    gap: 2rem;
+}
+.players{
+    border: 0.3rem solid #222;
+    width: 20rem;
+}
