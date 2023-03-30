@@ -18,6 +18,7 @@ body{
     justify-content: center;
 }
 .gridSquare{
+   display: block;
     border: 0.3rem solid #222;
 }
 main{
@@ -30,4 +31,15 @@ main{
 }
 .new-game{
     margin-top: 2rem;
+}
+.TokenWording{
+    font-weight:700;
+}
+.canvas{
+    width: 30px;
+    height:30px;
+    text-align: center;
+}
+.token{
+    display:block;
 }
