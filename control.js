@@ -102,16 +102,18 @@ fileP1.addEventListener("change", function(e){
         x.setAttribute("class", ImgP);
         picArray.push(x)}
         if(num==1){
-        fileChanges(token1, picArray1, fileMess1)};
+        fileChanges(token1, picArray1, fileMess1, tokenConfP1, chooseTokenP1)};
         if(num==2){
-            fileChanges(token2, picArray2, fileMess2)}     
+            fileChanges(token2, picArray2, fileMess2, tokenConfP2, chooseTokenP2)}     
       }
 
-  function fileChanges(token, picArray, fileMess){
+  function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP){
     token.innerText="";
     token.appendChild(picArray[0]);
     picArray.shift();
     fileMess.innerText="Picture Uploaded!"
+    tokenConfP.innerText="";
+    chooseTokenP.value=""
   }
 
   startTurn()
@@ -119,19 +121,20 @@ fileP1.addEventListener("change", function(e){
 
 submitButton1.addEventListener("click", function(e){
     e.preventDefault();
-    if(chooseTokenP1.value!=""){tokenP1=chooseTokenP1.value;
+    if(chooseTokenP1.value!=""){
+        token1.innerHTML=""
+        token1.innerHTML=chooseTokenP1.value;
+        tokenP1.innerHTML="";
+        tokenP1=chooseTokenP1.value;
     tokenConfP1.innerText=`You have chosen ${tokenP1}`}
-    else if(fileP1!=""){
-        function myFunction() {
-            let pic = document.createElement("IMG");
-            pic.setAttribute("src", "img_pulpit.jpg");
-            x.setAttribute("width", "3rem");
-            x.setAttribute("height", "3rem");
-            x.setAttribute("alt", "The Pulpit Rock");
-            token1.appendChild(x);
-    }}})
+})
 
-submitButton2.addEventListener("click", function(){    tokenP2=chooseTokenP2.value;
+submitButton2.addEventListener("click", function(){    
+    token1.innerHTML="";
+    token1.innerHTML=chooseTokenP1.value;
+    token2.innerHTML=""
+    token2.innerHTML=chooseTokenP2.value;
+    tokenP2=chooseTokenP2.value;
     tokenConfP2.innerText=`You have chosen ${tokenP2}`
 })
 
