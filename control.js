@@ -222,26 +222,15 @@ function filtForP1(){
     longestArrLength=0;
     let longestLine="";
     for(i=0; i<lines.length; i++){
-      console.log("slice in filter", document.querySelector(lines[i][0]).innerHTML.slice(-4,-2));
-       // console.log("filter for image", lines[i].filter((a)=>a.length>10&&document.querySelector(a).innerHTML.slice(-2,-4)=="P1"))
         let filter= lines[i].filter((a=>(document.querySelector(a).innerHTML==tokenP1||document.querySelector(a).innerHTML.slice(-4,-2)=="P1")))
-        console.log("filter", filter);
-        console.log("lines[i]", lines[i])
-        console.log("empty spaces in llines", lines[i].some((a)=>document.querySelector(a).innerText===""))
         if(lines[i].some((a)=>document.querySelector(a).innerText===""&&filter.length>longestArrLength)){
             longestArrLength=filter.length;
             longestLine=lines[i];
         }
-        console.log("longestArrLength", longestArrLength) 
 }
 placeTokenComp(longestArrLength, longestLine)
 }
     
-
-
-
-
-
 function populateTile(charFile, picArray, token, selectedTile) {
     if (selectedTile.innerHTML === "") {
         if (charFile == "char") {
@@ -269,39 +258,28 @@ function getWinMatrix() {
     }
     checkTie()
 }
-/*
-//check two of the same characters in a row, column or diagonal
-function checkTwoinRow(){
-    for(i=0; i<lines.length; i++)
-    if(new Set(lines[i]).length==2)&&lines[i].includes(tokenP2){
-
-        
-    }
-}*/
 
 //checks rows / columns / diagonals in array to see if three values in one of these match
 function checkWinner() {
     if (winMatrix.every((val, i, arr) => val === arr[0] == true) && !winMatrix[0] == "" && winMatrix.length == 3 && won == false) {
         if ((winMatrix[0] === "P1" || winMatrix[0] == tokenP1) && won == false) {
-            winner = "Player1";
-            intro.innerText = "Player 1 Wins!!!";
-            P1WinCount += 1;
-            P1Wins.innerText = P1WinCount;
-            P2LossCount += 1;
-            P2Losses.innerText = P2LossCount;
-            won = true
+            winChanges("Player1", P1WinCount, P1Wins, P2LossCount, P2Losses)
         }
         if ((winMatrix[0] == "P2" || winMatrix[0] == tokenP2) && won == false) {
-            winner = "Player2";
-            intro.innerText = "Player 2 Wins!!!";
-            P2WinCount += 1;
-            P2Wins.innerText = P2WinCount;
-            P1LossCount += 1;
-            P1Losses.innerText = P1LossCount;
-            won = true
+            winChanges("Player2", P2WinCount, P2Wins, P1LossCount, P1Losses)
         }
     }
 
+}
+
+function winChanges(player, WinCount, Wins, LossCount, Losses){
+    winner=player;
+    intro.innerText=`${player} Wins!`
+    WinCount+=1;
+    Wins.innerText=WinCount;
+    LossCount+=1;
+    Losses.innerText=LossCount;
+    won=true;
 }
 
 
