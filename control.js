@@ -181,54 +181,50 @@ function placeTile(tile) {
 function placeTokenComp(len, lines){
     for(j=0; j<lines.length; j++){
         if(len==2){
-        if(document.querySelector(lines[j]).innerHTML===""){
+            console.log("player Token Comp running for len 2")
+            if(document.querySelector(lines[j]).innerHTML===""){
             document.querySelector(lines[j]).innerHTML=tokenP2;
-            turn="Player1";
-            intro.innerText="Player 1, Please Click on a Square to Place Your Token"
-            //stop loop, prevent more than one char being placed
-            
+            compChangePlayer()
             i=15;
             break}}
-            else if( len==1){
+            
+//checks if len is one or if line with 2 char has no empty spaces. In the latter case need to revert to 1 char so can place tile.
+            else if(len===1||(len===2&&!document.querySelector(lines[j]).some((a)=>document.querySelector(a).innerHTML===""))){
+                console.log("player Token Comp running for len 1")
                 if(document.querySelector(lines[j]).innerHTML===""){
+                    console.log("in len 1 there is a free value")
                     document.querySelector(lines[j]).innerHTML=tokenP2;
-                    turn="Player1";
-                    intro.innerText="Player 1, Please Click on a Square to Place Your Token"
-                    //stop loop, prevent more than one char being placed  
-                    i=15;
-                    break}
+                compChangePlayer()
+                i=15;
+                break
             }
-
+               
+    }
 }
+
+
+function compChangePlayer(){
+  
+        turn="Player1";
+        intro.innerText="Player 1, Please Click on a Square to Place Your Token"
+        //stop loop, prevent more than one char being placed      
+  
+    }
+
 }
 
 function computerTurn(){
 filtForP1();
         
-}/*
-function oneInArrayComp(){ 
-    for(i=0; i<lines.length; i++){
-    console.log("i", i)
-            console.log("One P1 char on line")
-            for(j=0; j<lines[i].length; j++){
-            if(document.querySelector(lines[i][j]).innerHTML===""){
-                console.log("blank square in array of two")
-                document.querySelector(lines[i][j]).innerHTML=tokenP2;
-                turn="Player1";
-                intro.innerText="Player 1, Please Click on a Square to Place Your Token"
-                //stop loop, prevent more than one char being placed
-                i=15;
-                break
-            }
-            }
-        }
-    }*/
+}
 //filtering criteria to check how many P1 tokens in line with a blank space
 function filtForP1(){
     longestArrLength=0;
     let longestLine="";
     for(i=0; i<lines.length; i++){
-        let filter= lines[i].filter((a=>(document.querySelector(a).innerHTML==tokenP1||document.querySelector(a).innerHTML.slice(-2,-4)=="P1")))
+      console.log("slice in filter", document.querySelector(lines[i][0]).innerHTML.slice(-4,-2));
+       // console.log("filter for image", lines[i].filter((a)=>a.length>10&&document.querySelector(a).innerHTML.slice(-2,-4)=="P1"))
+        let filter= lines[i].filter((a=>(document.querySelector(a).innerHTML==tokenP1||document.querySelector(a).innerHTML.slice(-4,-2)=="P1")))
         console.log("filter", filter);
         console.log("lines[i]", lines[i])
         console.log("empty spaces in llines", lines[i].some((a)=>document.querySelector(a).innerText===""))
