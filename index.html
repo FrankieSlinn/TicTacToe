@@ -4,72 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Bowlby+One+SC&family=Delicious+Handrawn&family=Patua+One&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer src="control.js"></script>
     <title>TicTacToe</title>
+    </head>
+    <body>
     <h1>TicTacToe</h1>
     <div class = "game-mode">
-        <p>Play against: </p>
-        <button class="button-hum button">Human</button>
-        <button class="button-comp button">Computer</button>
+        <p class="mode-message">Play against: </p>
+        <button class="button-hum button-mode">A Normal Human Being</button>
+        <button class="button-comp button-mode">Einstein, the Computer</button>
     </div>
+    <br>
     <div class="intro">Player 1, Please Click on a Square to Place Your Token</div>
+    <br>
     <main class="grid-container">
         <div class="grid"></div>
         <div class = "players">
+            <div class="player1">
             <h2>Player 1   <span class=" token token1"></span></h2>
-            <p>Wins:</p>
-            <p class="P1Wins"></p>
-            <p>Losses:</p>
-            <p class="P1Losses"></p>
-            <p>Draws:</p>
-            <p class="P1Draws"></p>
+            <p>Wins: <span class="P1Wins"></span></p>
+            <p>Losses: <span class="P1Losses"></span></p>
+            <p>Draws: <span class="P1Draws"></span></p>
+        </div>
+        <div class="player2">
             <h2>Player 2   <span class="token token2"></span></h2>
-            <p>Wins:</p>
-            <p class="P2Wins"></p>
-            <p>Losses:</p>
-            <p class="P2Losses"></p>
-            <p>Draws:</p>
-            <p class="P2Draws"></p>
+            <p>Wins: <span class="P2Wins"></span></p>
+            <p>Losses: <span class="P2Losses"></span></p>
+            <p>Draws: <span class="P2Draws"></span></p>
+        </div>
         </div>
     </main>
 
     <button class="new-game">Start New Game</button>
 
-        <p>Bored of Using the Same Tokens? Type your preferred token character / name here. Names should have no more than 10 characters</p>
-      
-       <p class="P1TokenWording TokenWording">Player 1 Token</p>
-        <input class="chooseTokenP1 chooseToken" maxlength="10"></input>
-        <button type="submit" class="submit-button, submit-buttonP1">Submit</button><span class="token-conf-P1"></span>
-        <br>
-        <br>
-        <p>...or choose a picture file(png, gif or jpeg)</p>
-            
-            <div file-container file-container1>
-                <input type="file" id="fileP1" name="filename" accept="image/png, image/gif, image/jpeg" multiple="false" >
-            <div class="file-mess file-mess1"></div>
-            </div>
-           <!-- <button type="submit" class="submit-button-file, submit-button-fileP1">Submit</button><span class="token-conf-P1"></span>-->
-            <br>
-            <br>       
-        <p class="P2TokenWording TokenWording">Player 2 Token</p>
-
-        <input class="chooseTokenP2 chooseToken" maxlength="10"></input>
-        <button type="submit" class="submit-button, submit-buttonP2">Submit</button><span class="token-conf-P2"></span>
-        <br>
-        <br>
-        <div file-container file-container1>
-            <input type="file" id="fileP2" name="filename" accept="image/png, image/gif, image/jpeg" multiple="false" >
-        <div class="file-mess file-mess2"></div>
-        </div>
-        
-    
-
-       
-
-  
-</head>
-<body>
-    
+        <p>Bored of Using the Same Token? Type your preferred token character / name here. Names should have no more than 5 characters</p>
+        <button class="change-token" onclick="window.location.href='./token.html'">Change Yer Tic Tac Toeken</button> 
 </body>
 </html>

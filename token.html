@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Bowlby+One+SC&family=Delicious+Handrawn&family=Patua+One&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="control.js"></script>
+    <title>TicTacToe - Change Token</title>
+</head>
+<body>
+    <h1>TicTacToe - Change Token</h1>
+    <p class="P1TokenWording TokenWording">Player 1 Token</p>
+    <input class="chooseTokenP1 chooseToken" maxlength="10"></input>
+    <button type="submit" class="submit-button, submit-buttonP1">Submit</button><span class="token-conf-P1"></span>
+    <br>
+    <br>
+    <p>...or choose a picture file(png, gif or jpeg)</p>
+        
+        <div file-container file-container1>
+            <input type="file" id="fileP1" name="filename" accept="image/png, image/gif, image/jpeg" multiple="false" >
+        <div class="file-mess file-mess1"></div>
+        </div>
+       <!-- <button type="submit" class="submit-button-file, submit-button-fileP1">Submit</button><span class="token-conf-P1"></span>-->
+        <br>
+        <br>       
+    <p class="P2TokenWording TokenWording">Player 2 Token</p>
+
+    <input class="chooseTokenP2 chooseToken" maxlength="10"></input>
+    <button type="submit" class="submit-button, submit-buttonP2">Submit</button><span class="token-conf-P2"></span>
+    <br>
+    <br>
+    <div file-container file-container1>
+        <input type="file" id="fileP2" name="filename" accept="image/png, image/gif, image/jpeg" multiple="false" >
+    <div class="file-mess file-mess2"></div>
+    </div>
+
+    <button class="main-page" onclick="window.location.href='./index.html'">Go to Main Page to Get Your Tic Tac Toe Fix</button>
+    
+</body>
+</html>

@@ -58,6 +58,8 @@ let charFileP2 = "char";
 
 //Computer vs Player - Choose between "human" and "computer mode"
 let mode="human";
+let modeMessage = document.querySelector(".mode-message");
+let buttonMode=document.querySelector(".button-mode");
 let buttonHum=document.querySelector(".button-hum");
 let buttonComp=document.querySelector(".button-comp");
 
@@ -124,7 +126,15 @@ function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP) {
 
 startTurn()
 
-buttonComp.addEventListener("click", function(){mode = "computer"})
+buttonComp.addEventListener("click", function(){
+    console.log("computer button clicked")
+    mode = "computer";
+    document.querySelectorAll(".button-mode").forEach((a)=>{
+        console.log(a);
+        a.style.display="none"})
+    modeMessage.innerText="You are now playing Einstein, the Computer" ; 
+    modeMessage.classList.add("mode-select");  
+    })
 
 
 submitButton1.addEventListener("click", function (e) {
@@ -248,7 +258,7 @@ function getWinMatrix() {
     console.log("getWinMatrix running")
     for (i = 0; i < lines.length; i++) {
         for (j = 0; j < 3; j++) {
-            if (document.querySelector(lines[i][j]).innerText.length === 1) {
+            if (document.querySelector(lines[i][j]).innerText.length <= 11) {
                 winMatrix.push(document.querySelector(lines[i][j]).innerHTML);
             }
             else { winMatrix.push(document.querySelector(lines[i][j]).innerHTML.slice(-4,-2)) }
@@ -308,8 +318,21 @@ function startNew() {
     winner = "";
     winMatrix=[];
     intro.innerText = "Player 1, Please Click on a Square to Place Your X";
+    resetMode();
     placeTile();
 }
+
+
+function resetMode(){
+    document.querySelectorAll(".button-mode").forEach((a)=>{
+        a.style.display="inline-block"})
+    modeMessage.innerText="Play against:" ; 
+    modeMessage.classList.remove("mode-select"); 
+}
+
+
+
+
 
 
 
