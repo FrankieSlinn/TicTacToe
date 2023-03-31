@@ -43,3 +43,6 @@ main{
 .token{
     display:block;
 }
+.game-mode{
+    margin-bottom: 3rem;
+}

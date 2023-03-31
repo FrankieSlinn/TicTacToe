@@ -56,7 +56,10 @@ let picArray2 = [];
 let charFileP1 = "char";
 let charFileP2 = "char";
 
-
+//Computer vs Player - Choose between "human" and "computer mode"
+let mode="human";
+let buttonHum=document.querySelector(".button-hum");
+let buttonComp=document.querySelector(".button-comp");
 
 
 let gridSquare = "";
@@ -65,7 +68,7 @@ let turn = "Player1";
 let won = false;
 let winner = ""
 let draw = false;
-let tempIcon = [];
+let winMatrix = [];
 
 //Create pseudoelements for grid - Needs to be displayed early!
 
@@ -77,8 +80,6 @@ for (i = 0; i < 9; i++) {
 }
 
 //choose icon function
-console.log()
-
 fileP1.addEventListener("change", function (e) {
     //displays if token is a character or a file
     charFileP1 = "file";
@@ -123,6 +124,8 @@ function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP) {
 
 startTurn()
 
+buttonComp.addEventListener("click", function(){mode = "computer"})
+
 
 submitButton1.addEventListener("click", function (e) {
     e.preventDefault();
@@ -146,22 +149,26 @@ submitButton2.addEventListener("click", function () {
 
 
 function startTurn() {
+    if(mode==="human"||turn=="Player1"){
     for (let i = 0; i < squareIdArray.length; i++) {
-        console.log("squareID i ", squareIdArray[i])
         document.querySelector(squareIdArray[i]).addEventListener("click", function () {
             let tile = squareIdArray[i];
-            console.log("tile in start Turn and squareIdAray i", tile, squareIdArray[i])
             if (won == false) { placeTile(tile) };
         })
     }
+}
 }
 
 function placeTile(tile) {
     if (turn === "Player1") {
         let selectedTile1=document.querySelector(tile)
         populateTile(charFileP1, picArray1, tokenP1, selectedTile1)
+        if(mode=="human"){
         turn = "Player2";
-        intro.innerText = "Player 2, Please Click on a Square to Place Your Token";
+        intro.innerText = "Player 2, Please Click on a Square to Place Your Token";}
+        if(mode=="computer"){
+            computerTurn();
+        }
     }
     else if (turn === "Player2") {
         let selectedTile2=document.querySelector(tile); 
@@ -171,15 +178,81 @@ function placeTile(tile) {
     };
     getWinMatrix();
 }
+function placeTokenComp(len, lines){
+    for(j=0; j<lines.length; j++){
+        if(len==2){
+        if(document.querySelector(lines[j]).innerHTML===""){
+            document.querySelector(lines[j]).innerHTML=tokenP2;
+            turn="Player1";
+            intro.innerText="Player 1, Please Click on a Square to Place Your Token"
+            //stop loop, prevent more than one char being placed
+            
+            i=15;
+            break}}
+            else if( len==1){
+                if(document.querySelector(lines[j]).innerHTML===""){
+                    document.querySelector(lines[j]).innerHTML=tokenP2;
+                    turn="Player1";
+                    intro.innerText="Player 1, Please Click on a Square to Place Your Token"
+                    //stop loop, prevent more than one char being placed  
+                    i=15;
+                    break}
+            }
+
+}
+}
+
+function computerTurn(){
+filtForP1();
+        
+}/*
+function oneInArrayComp(){ 
+    for(i=0; i<lines.length; i++){
+    console.log("i", i)
+            console.log("One P1 char on line")
+            for(j=0; j<lines[i].length; j++){
+            if(document.querySelector(lines[i][j]).innerHTML===""){
+                console.log("blank square in array of two")
+                document.querySelector(lines[i][j]).innerHTML=tokenP2;
+                turn="Player1";
+                intro.innerText="Player 1, Please Click on a Square to Place Your Token"
+                //stop loop, prevent more than one char being placed
+                i=15;
+                break
+            }
+            }
+        }
+    }*/
+//filtering criteria to check how many P1 tokens in line with a blank space
+function filtForP1(){
+    longestArrLength=0;
+    let longestLine="";
+    for(i=0; i<lines.length; i++){
+        let filter= lines[i].filter((a=>(document.querySelector(a).innerHTML==tokenP1||document.querySelector(a).innerHTML.slice(-2,-4)=="P1")))
+        console.log("filter", filter);
+        console.log("lines[i]", lines[i])
+        console.log("empty spaces in llines", lines[i].some((a)=>document.querySelector(a).innerText===""))
+        if(lines[i].some((a)=>document.querySelector(a).innerText===""&&filter.length>longestArrLength)){
+            longestArrLength=filter.length;
+            longestLine=lines[i];
+        }
+        console.log("longestArrLength", longestArrLength) 
+}
+placeTokenComp(longestArrLength, longestLine)
+}
+    
+
+
+
+
 
 function populateTile(charFile, picArray, token, selectedTile) {
     if (selectedTile.innerHTML === "") {
-        console.log("yesyes")
         if (charFile == "char") {
             selectedTile.innerHTML = token;
         }
         else if (charFile === "file") {
-            selectedTile.appendChild(picArray[0]);
+            selectedTile.appendChild(picArray[0]);//put slice in
             picArray.shift();
         }
     }
@@ -190,26 +263,30 @@ function getWinMatrix() {
     console.log("getWinMatrix running")
     for (i = 0; i < lines.length; i++) {
         for (j = 0; j < 3; j++) {
-            console.log("linesij before tempicon", lines[i][j])
             if (document.querySelector(lines[i][j]).innerText.length === 1) {
-                console.log("length is 1!!!! to be pushed into tempicon")
-                tempIcon.push(document.querySelector(lines[i][j]).innerHTML);
-                console.log("what pushed into tempIcon", document.querySelector(lines[i][j]).innerHTML)
+                winMatrix.push(document.querySelector(lines[i][j]).innerHTML);
             }
-            else { tempIcon.push(document.querySelector(lines[i][j]).innerHTML.slice(-4, -2)) }
-            console.log("tempIcon array", tempIcon)
+            else { winMatrix.push(document.querySelector(lines[i][j]).innerHTML.slice(-4,-2)) }
         }
         checkWinner();
-
-        tempIcon = []
+        winMatrix = []
     }
     checkTie()
 }
+/*
+//check two of the same characters in a row, column or diagonal
+function checkTwoinRow(){
+    for(i=0; i<lines.length; i++)
+    if(new Set(lines[i]).length==2)&&lines[i].includes(tokenP2){
+
+        
+    }
+}*/
 
 //checks rows / columns / diagonals in array to see if three values in one of these match
 function checkWinner() {
-    if (tempIcon.every((val, i, arr) => val === arr[0] == true) && !tempIcon[0] == "" && tempIcon.length == 3 && won == false) {
-        if ((tempIcon[0] === "P1" || tempIcon[0] == tokenP1) && won == false) {
+    if (winMatrix.every((val, i, arr) => val === arr[0] == true) && !winMatrix[0] == "" && winMatrix.length == 3 && won == false) {
+        if ((winMatrix[0] === "P1" || winMatrix[0] == tokenP1) && won == false) {
             winner = "Player1";
             intro.innerText = "Player 1 Wins!!!";
             P1WinCount += 1;
@@ -218,7 +295,7 @@ function checkWinner() {
             P2Losses.innerText = P2LossCount;
             won = true
         }
-        if ((tempIcon[0] == "P2" || tempIcon[0] == tokenP2) && won == false) {
+        if ((winMatrix[0] == "P2" || winMatrix[0] == tokenP2) && won == false) {
             winner = "Player2";
             intro.innerText = "Player 2 Wins!!!";
             P2WinCount += 1;
@@ -234,14 +311,11 @@ function checkWinner() {
 
 //if no-one has one checks to see if all squares populated. In this case it is a draw
 function checkTie() {
-    console.log("checkTie function running")
     if (draw === false) {
         //check all squares filled and that no-one has won
         if (squareIdArray.every((val, i, arr) => document.querySelector(val).innerHTML != "") && won != true) {
-            console.log("all squares filled", squareIdArray.every((val, i, arr) => document.querySelector(val).innerText != ""));
             intro.innerText = "You Have a Draw!";
             drawCount += 1;
-            console.log("drawCount", drawCount)
             P1Draws.innerText = drawCount;
             P2Draws.innerText = drawCount;
             draw = true;
@@ -258,6 +332,7 @@ function startNew() {
     won = false;
     draw = false;
     winner = "";
+    winMatrix=[];
     intro.innerText = "Player 1, Please Click on a Square to Place Your X";
     placeTile();
 }
