@@ -59,21 +59,41 @@ main{
 .token{
     display:block;
 }
+.change{
+    margin: 2rem;
+}
 .game-mode{
     margin-bottom: 3rem;
 }
-button{
+button,  #fileP1, #fileP2{
     color: #333;
+    background-color: #f0f0f0;
     font-weight: 700;
     font-size: 1rem;
+    letter-spacing: 0.1rem;
     padding: 0.75rem;
     transition-duration: 0.5s;
     font-family: 'Patua One', cursive;
 }
-button:hover {
+.section-token{
+
+}
+.token-file{
+    text-align: center;
+}
+.chooseToken{
+    font-size: 1rem;
+}
+button:hover, #fileP1:hover, #fileP2:hover {
     background-color: #fff; /* Green */
     color: #333;
     padding: 1.2rem;
+  }
+  .uploadP1:hover, .uploadP2:hover{
+    font-size:1.2rem;
+  }
+  .back-to-game{
+    margin: 2rem 0 2rem 0;
   }
 .game-mode{
     height: 4rem;

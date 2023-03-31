@@ -31,6 +31,10 @@ P1Losses.innerText = P1WinCount;
 P2Losses.innerText = P2WinCount;
 
 //Customised Token
+let changeToken=document.querySelector(".change-token");
+let change=document.querySelector(".change");
+let backToGame= document.querySelector(".back-to-game");
+let sectionToken=document.querySelector(".section-token");
 let tokenP1 = "X";
 let tokenP2 = "O";
 let token1 = document.querySelector(".token1");
@@ -81,6 +85,19 @@ for (i = 0; i < 9; i++) {
     grid.appendChild(gridSquare);
 }
 
+//open token change options
+changeToken.addEventListener("click", function(){
+    sectionToken.style.display="inline-block";
+    changeToken.style.display="none";
+    change.style.display="none";
+})
+
+backToGame.addEventListener("click", function(){
+    sectionToken.style.display="none";
+    backToGame.style.display="none";
+    changeToken.style.display="inline-block";
+})
+
 //choose icon function
 fileP1.addEventListener("change", function (e) {
     //displays if token is a character or a file
@@ -108,54 +125,70 @@ function fileElementArray(file, ImgP, picArray, num) {
         picArray.push(x)
     }
     if (num == 1) {
-        fileChanges(token1, picArray1, fileMess1, tokenConfP1, chooseTokenP1)
+        fileChanges(token1, picArray1, fileMess1, tokenConfP1, chooseTokenP1, tokenP1)
     };
     if (num == 2) {
-        fileChanges(token2, picArray2, fileMess2, tokenConfP2, chooseTokenP2)
+        fileChanges(token2, picArray2, fileMess2, tokenConfP2, chooseTokenP2, tokenP2)
     }
 }
 
-function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP) {
+function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP, tokenP) {
     token.innerText = "";
     token.appendChild(picArray[0]);
     picArray.shift();
     fileMess.innerText = "Picture Uploaded!"
     tokenConfP.innerText = "";
-    chooseTokenP.value = ""
+    chooseTokenP.value = "";
+    tokenP="";
 }
+
+
+submitButton1.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (chooseTokenP1.value != "") {
+        if(chooseTokenP1.value.length<=5){
+            tokenP1=chooseTokenP1.value;
+        submitCharChanges(token1, tokenP1, tokenConfP1, chooseTokenP1)}
+        else{tokenConfP1.innerText = "   Your Token is Over 5 Letters Long. Please Use a Shorter Token"}
+    }
+})
+
+submitButton2.addEventListener("click", function (e) {
+    console.log("chooseTokenP2 in submitlistener", chooseTokenP2)
+    e.preventDefault();
+    if (chooseTokenP2.value != "") {
+        if(chooseTokenP2.value.length<=5){
+            tokenP2=chooseTokenP2.value;
+    submitCharChanges(token2, tokenP2, tokenConfP2, chooseTokenP2)
+    }
+    else{tokenConfP2.innerText = "   Your Token is Over 5 Letters Long. Please Use a Shorter Token"}
+}
+})
+
+function submitCharChanges(token, tokenP, tokenConfP, chooseTokenP){
+    token.innerHTML = ""
+    token.innerHTML = chooseTokenP.value;
+    tokenP.innerHTML = "";
+    console.log("chooseTokenP2", chooseTokenP.value, tokenP)
+    //tokenP = chooseTokenP.value;
+    console.log("tokenP2", tokenP)
+    tokenConfP.innerText = `  You have chosen ${tokenP}`;
+
+}
+console.log("tokenP2 outside function", tokenP2)
 
 startTurn()
 
 buttonComp.addEventListener("click", function(){
-    console.log("computer button clicked")
     mode = "computer";
     document.querySelectorAll(".button-mode").forEach((a)=>{
-        console.log(a);
         a.style.display="none"})
     modeMessage.innerText="You are now playing Einstein, the Computer" ; 
     modeMessage.classList.add("mode-select");  
     })
 
 
-submitButton1.addEventListener("click", function (e) {
-    e.preventDefault();
-    if (chooseTokenP1.value != "") {
-        token1.innerHTML = ""
-        token1.innerHTML = chooseTokenP1.value;
-        tokenP1.innerHTML = "";
-        tokenP1 = chooseTokenP1.value;
-        tokenConfP1.innerText = `You have chosen ${tokenP1}`
-    }
-})
 
-submitButton2.addEventListener("click", function () {
-    token2.innerHTML = "";
-    token2.innerHTML = chooseTokenP1.value;
-    token2.innerHTML = ""
-    token2.innerHTML = chooseTokenP2.value;
-    tokenP2 = chooseTokenP2.value;
-    tokenConfP2.innerText = `You have chosen ${tokenP2}`
-})
 
 
 function startTurn() {
@@ -173,6 +206,7 @@ function placeTile(tile) {
     if (turn === "Player1") {
         let selectedTile1=document.querySelector(tile)
         populateTile(charFileP1, picArray1, tokenP1, selectedTile1)
+        console.log("tokenP1 in placeTile", tokenP1)
         if(mode=="human"){
         turn = "Player2";
         intro.innerText = "Player 2, Please Click on a Square to Place Your Token";}
@@ -207,18 +241,13 @@ function placeTokenComp(len, lines){
                 compChangePlayer()
                 i=15;
                 break
-            }
-               
+            }            
     }
 }
 
-
-function compChangePlayer(){
-  
+function compChangePlayer(){ 
         turn="Player1";
-        intro.innerText="Player 1, Please Click on a Square to Place Your Token"
-        //stop loop, prevent more than one char being placed      
-  
+        intro.innerText="Player 1, Please Click on a Square to Place Your Token"     
     }
 
 }
@@ -227,7 +256,7 @@ function computerTurn(){
 filtForP1();
         
 }
-//filtering criteria to check how many P1 tokens in line with a blank space
+//filtering criteria to check how many P1 tokens in line with a blank space. Neede for computer mode. 
 function filtForP1(){
     longestArrLength=0;
     let longestLine="";
@@ -258,10 +287,11 @@ function getWinMatrix() {
     console.log("getWinMatrix running")
     for (i = 0; i < lines.length; i++) {
         for (j = 0; j < 3; j++) {
-            if (document.querySelector(lines[i][j]).innerText.length <= 11) {
+            if (document.querySelector(lines[i][j]).innerHTML.length <= 11) {
                 winMatrix.push(document.querySelector(lines[i][j]).innerHTML);
             }
-            else { winMatrix.push(document.querySelector(lines[i][j]).innerHTML.slice(-4,-2)) }
+            else {console.log("lines in winmatrix linesij.innerhtml.slice", document.querySelector(lines[i][j]).innerHTML.slice(-4,-2))
+                 winMatrix.push(document.querySelector(lines[i][j]).innerHTML.slice(-4,-2)) }
         }
         checkWinner();
         winMatrix = []
