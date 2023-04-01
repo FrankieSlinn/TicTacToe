@@ -50,6 +50,9 @@ main{
     border: 0.3rem solid #222;
     width: 20rem;
 }
+.activePlayer1, .activePlayer2{
+    border:0.3rem solid #555;
+}
 .new-game{
     margin-top: 2rem;
 }

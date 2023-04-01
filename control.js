@@ -11,6 +11,8 @@ const lines = [row1, row2, row3, col1, col2, col3, dia1, dia2]
 const grid = document.querySelector(".grid");
 const intro = document.querySelector(".intro");
 const newGame = document.querySelector(".new-game");
+const player1Frame=document.querySelector(".player1");
+const player2Frame=document.querySelector(".player2");
 //Scores
 const P1Wins = document.querySelector(".P1Wins");
 const P2Wins = document.querySelector(".P2Wins");
@@ -101,6 +103,7 @@ backToGame.addEventListener("click", function(){
 //choose icon function
 fileP1.addEventListener("change", function (e) {
     //displays if token is a character or a file
+    picArray1=[];
     charFileP1 = "file";
     let file1 = e.target.files[0];
     fileElementArray(file1, "ImgP1", picArray1, 1)
@@ -108,6 +111,7 @@ fileP1.addEventListener("change", function (e) {
 
 fileP2.addEventListener("change", function (evt) {
     //displays if token is a character or a file
+    picArray2=[];
     charFileP2 = "file";
     let file2 = evt.target.files[0];
     fileElementArray(file2, "ImgP2", picArray2, 2)
@@ -142,9 +146,10 @@ function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP, tokenP
     tokenP="";
 }
 
-
+//For char token updates
 submitButton1.addEventListener("click", function (e) {
     e.preventDefault();
+    charFileP1="char";
     if (chooseTokenP1.value != "") {
         if(chooseTokenP1.value.length<=5){
             tokenP1=chooseTokenP1.value;
@@ -156,6 +161,7 @@ submitButton1.addEventListener("click", function (e) {
 submitButton2.addEventListener("click", function (e) {
     console.log("chooseTokenP2 in submitlistener", chooseTokenP2)
     e.preventDefault();
+    charFileP2="char";
     if (chooseTokenP2.value != "") {
         if(chooseTokenP2.value.length<=5){
             tokenP2=chooseTokenP2.value;
@@ -204,9 +210,9 @@ function startTurn() {
 
 function placeTile(tile) {
     if (turn === "Player1") {
+        showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
         let selectedTile1=document.querySelector(tile)
-        populateTile(charFileP1, picArray1, tokenP1, selectedTile1)
-        console.log("tokenP1 in placeTile", tokenP1)
+        populateTile(charFileP1, picArray1, tokenP1, selectedTile1);
         if(mode=="human"){
         turn = "Player2";
         intro.innerText = "Player 2, Please Click on a Square to Place Your Token";}
@@ -215,6 +221,7 @@ function placeTile(tile) {
         }
     }
     else if (turn === "Player2") {
+        showActivePlayer(player2Frame, player1Frame, "activePlayer2", "activePlayer1");
         let selectedTile2=document.querySelector(tile); 
         populateTile(charFileP2, picArray2, tokenP2, selectedTile2)
         turn = "Player1"
@@ -222,6 +229,11 @@ function placeTile(tile) {
     };
     getWinMatrix();
 }
+function showActivePlayer(playerFrameX, playerFrameY, activePlayerX, activePlayerY){
+    playerFrameX.classList.add(activePlayerX);
+    playerFrameY.classList.remove(activePlayerY);
+}
+
 function placeTokenComp(len, lines){
     for(j=0; j<lines.length; j++){
         if(len==2){
