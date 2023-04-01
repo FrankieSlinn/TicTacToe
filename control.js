@@ -76,19 +76,6 @@ let won = false;
 let winner = ""
 let draw = false;
 let winMatrix = [];
-/*
-//Create pseudoelements for grid - Needs to be displayed early!
-
-for (i = 0; i < 9; i++) {
-    gridSquare = document.createElement("div");
-    gridSquare.setAttribute("class", `gridSquare`)
-    gridSquare.setAttribute("id", `gridSquare${[i + 1]}`)
-    grid.appendChild(gridSquare);
-    getSqHTMLFromLocalStorage();
-    console.log("lsgetitem gsq1 after set up tiles", JSON.parse( localStorage.getItem("gridSquare1" ) ))
-}*/
-
-
 
 //open token change options
 changeToken.addEventListener("click", function(){
@@ -110,6 +97,7 @@ fileP1.addEventListener("change", function (e) {
     charFileP1 = "file";
     let file1 = e.target.files[0];
     fileElementArray(file1, "ImgP1", picArray1, 1)
+
 })
 
 fileP2.addEventListener("change", function (evt) {
@@ -120,9 +108,12 @@ fileP2.addEventListener("change", function (evt) {
     fileElementArray(file2, "ImgP2", picArray2, 2)
 })
 
+
+
 //To be able to place multiple images, multiple images need to be created. These are stored in an array.
+//Array gets refilled after new game starts
 function fileElementArray(file, ImgP, picArray, num) {
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 10; i++) {
         let x = document.createElement("IMG");
         x.src = URL.createObjectURL(file);
         x.setAttribute("width", "70px");
@@ -427,7 +418,7 @@ function startNew() {
     resetMode();
     startLocalStorageChanges();
     startTurn();
-    
+    refillPicArraySetUp();
 }
 function startLocalStorageChanges(){
     for(let i =0; i<squareIdArray.length; i++){
@@ -441,6 +432,22 @@ function resetMode(){
         a.style.display="inline-block"})
     modeMessage.innerText="Play against:" ; 
     modeMessage.classList.remove("mode-select"); 
+}
+function  refillPicArraySetUp(){
+    console.log("refillPicArraySetUp running", picArray1, picArray2)
+    if (picArray1.length<10&&charFileP1=="file"){
+        refillPicArray(".ImgP1", picArray1);
+    }
+    else if(picArray2.length<10&& charFileP2=="file"){
+        refillPicArray(".ImgP2", picArray2);}}
+    
+// Create a copy of it
+function refillPicArray(Img, picArray){
+    let el = document.querySelector(Img);
+    let clone = el.cloneNode(true);
+    for(let i=0; i<20; i++)
+    picArray.push(clone)
+    console.log("refillPicArraySetUp running", picArray1, picArray2)
 }
 
 
