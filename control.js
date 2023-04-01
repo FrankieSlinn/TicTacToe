@@ -196,6 +196,14 @@ buttonComp.addEventListener("click", function(){
     modeMessage.classList.add("mode-select");  
     })
 
+    buttonHum.addEventListener("click", function(){
+        mode = "human";
+        document.querySelectorAll(".button-mode").forEach((a)=>{
+            a.style.display="none"})
+        modeMessage.innerText="You are now playing a Regular Person" ; 
+        modeMessage.classList.add("mode-select");  
+        })
+
     function startTurn() {
         getSqHTMLFromLocalStorage();
     console.log("lsgetitem gsq1 after set up tiles start turn", JSON.parse( localStorage.getItem("gridSquare1" ) ))
