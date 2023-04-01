@@ -39,6 +39,7 @@ let backToGame= document.querySelector(".back-to-game");
 let sectionToken=document.querySelector(".section-token");
 let tokenP1 = "X";
 let tokenP2 = "O";
+let P2TokenFrame = document.querySelector(".P2TokenFrame");
 let token1 = document.querySelector(".token1");
 let token2 = document.querySelector(".token2");
 token1.innerHTML = tokenP1;
@@ -77,7 +78,7 @@ let winner = ""
 let draw = false;
 let winMatrix = [];
 
-//open token change options
+//open token change options section
 changeToken.addEventListener("click", function(){
     sectionToken.style.display="inline-block";
     changeToken.style.display="none";
@@ -187,6 +188,9 @@ startTurn()
 
 buttonComp.addEventListener("click", function(){
     mode = "computer";
+    charFileP2 = "char";
+    P2TokenFrame.style.display="none";
+    token2.innerText="O";
     document.querySelectorAll(".button-mode").forEach((a)=>{
         a.style.display="none"})
     modeMessage.innerText="You are now playing Einstein, the Computer" ; 
@@ -215,17 +219,11 @@ buttonComp.addEventListener("click", function(){
     }
 
 
-
 function placeTile(tile) {
     getSqHTMLFromLocalStorage();
-    console.log("lsgetitem gsq1 placetile", JSON.parse( localStorage.getItem("turn" ) ))
     if (JSON.parse( localStorage.getItem("turn" )) === "Player1"){
-        console.log("turn in placeTile", JSON.parse( localStorage.getItem("turn" )) )
-        console.log("tile in placeTile", tile)
         let selectedTile1=document.querySelector(tile); 
-        console.log("selectedTile in placeTile", selectedTile1)
         localStorage.setItem(`selectedTile1`, JSON.stringify(selectedTile1));
-        console.log("turn in placeTile b4 switch to P2", JSON.parse( localStorage.getItem("turn" )) )
         populateTile(charFileP1, picArray1, tokenP1, selectedTile1);
         
     }
@@ -245,25 +243,23 @@ function showActivePlayer(playerFrameX, playerFrameY, activePlayerX, activePlaye
 function placeTokenComp(len, lines){
     for(j=0; j<lines.length; j++){
         if(len==2){
-            console.log("player Token Comp running for len 2")
             if(document.querySelector(lines[j]).innerHTML===""){
-            document.querySelector(lines[j]).innerHTML=tokenP2;
-            compChangePlayer()
-            i=15;
-            break}}
+                document.querySelector(lines[j]).innerHTML=tokenP2;
+                compChangePlayer()
+                i=15;
+            break} }
             
 //checks if len is one or if line with 2 char has no empty spaces. In the latter case need to revert to 1 char so can place tile.
             else if(len===1||(len===2&&!document.querySelector(lines[j]).some((a)=>document.querySelector(a).innerHTML===""))){
-                console.log("player Token Comp running for len 1")
                 if(document.querySelector(lines[j]).innerHTML===""){
-                    console.log("in len 1 there is a free value")
                     document.querySelector(lines[j]).innerHTML=tokenP2;
-                compChangePlayer()
-                i=15;
-                break
+                    compChangePlayer()
+                    i=15;
+                break} 
             }            
     }
 }
+
 
 function compChangePlayer(){ 
     getSqHTMLFromLocalStorage()
@@ -271,8 +267,6 @@ function compChangePlayer(){
     localStorage.setItem(`turn`, JSON.stringify("Player1")) ;
         intro.innerText="Player 1, Please Click on a Square to Place Your Token"     
     }
-
-}
 
 function computerTurn(){
 filtForP1();
@@ -419,7 +413,7 @@ function startNew() {
     winner = "";
     winMatrix=[];
     intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
-    console.log("turn in start new before place tile", JSON.parse( localStorage.getItem("turn" )) )
+    P2TokenFrame.style.display="inline-block";
     showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
     resetMode();
     startLocalStorageChanges();
