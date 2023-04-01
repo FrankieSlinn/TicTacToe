@@ -148,8 +148,9 @@ submitButton1.addEventListener("click", function (e) {
         if(chooseTokenP1.value.length<=5){
             tokenP1=chooseTokenP1.value;
         submitCharChanges(token1, tokenP1, tokenConfP1, chooseTokenP1)}
-        else{tokenConfP1.innerText = "   Your Token is Over 5 Letters Long. Please Use a Shorter Token"}
+        else{charTooLong(tokenConfP1)}
     }
+    else{noChar(tokenConfP1)}
 })
 
 submitButton2.addEventListener("click", function (e) {
@@ -161,9 +162,14 @@ submitButton2.addEventListener("click", function (e) {
             tokenP2=chooseTokenP2.value;
     submitCharChanges(token2, tokenP2, tokenConfP2, chooseTokenP2)
     }
-    else{tokenConfP2.innerText = "   Your Token is Over 5 Letters Long. Please Use a Shorter Token"}
+    else{charTooLong(tokenConfP2)}
 }
+else{noChar(tokenConfP2)}
 })
+
+function charTooLong(tokenConf){tokenConf.innerText = "   Your Token is Over 5 Letters Long. Please Use a Shorter Token"};
+
+function noChar(tokenConf){tokenConf.innerText = "   Please Enter a Token Before You Submit"}
 
 function submitCharChanges(token, tokenP, tokenConfP, chooseTokenP){
     token.innerHTML = ""
