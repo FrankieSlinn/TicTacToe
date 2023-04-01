@@ -72,12 +72,11 @@ let buttonComp=document.querySelector(".button-comp");
 
 let gridSquare = "";
 let squareId = "";
-let turn = "Player1";
 let won = false;
 let winner = ""
 let draw = false;
 let winMatrix = [];
-
+/*
 //Create pseudoelements for grid - Needs to be displayed early!
 
 for (i = 0; i < 9; i++) {
@@ -85,7 +84,11 @@ for (i = 0; i < 9; i++) {
     gridSquare.setAttribute("class", `gridSquare`)
     gridSquare.setAttribute("id", `gridSquare${[i + 1]}`)
     grid.appendChild(gridSquare);
-}
+    getSqHTMLFromLocalStorage();
+    console.log("lsgetitem gsq1 after set up tiles", JSON.parse( localStorage.getItem("gridSquare1" ) ))
+}*/
+
+
 
 //open token change options
 changeToken.addEventListener("click", function(){
@@ -193,39 +196,39 @@ buttonComp.addEventListener("click", function(){
     modeMessage.classList.add("mode-select");  
     })
 
-
-
-
-
-function startTurn() {
-    if(mode==="human"||turn=="Player1"){
-    for (let i = 0; i < squareIdArray.length; i++) {
-        document.querySelector(squareIdArray[i]).addEventListener("click", function () {
-            let tile = squareIdArray[i];
-            if (won == false) { placeTile(tile) };
-        })
-    }
-}
-}
-
-function placeTile(tile) {
-    if (turn === "Player1") {
-        showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
-        let selectedTile1=document.querySelector(tile)
-        populateTile(charFileP1, picArray1, tokenP1, selectedTile1);
-        if(mode=="human"){
-        turn = "Player2";
-        intro.innerText = "Player 2, Please Click on a Square to Place Your Token";}
-        if(mode=="computer"){
-            computerTurn();
+    function startTurn() {
+        getSqHTMLFromLocalStorage();
+    console.log("lsgetitem gsq1 after set up tiles start turn", JSON.parse( localStorage.getItem("gridSquare1" ) ))
+        if(mode==="human"||localStorage.setItem(`turn`, JSON.stringify("Player1"))){
+        for (let i = 0; i < squareIdArray.length; i++) {
+            document.querySelector(squareIdArray[i]).addEventListener("click", function () {
+                let tile = squareIdArray[i];
+                if (won == false) { placeTile(tile) };
+            })
         }
     }
-    else if (turn === "Player2") {
-        showActivePlayer(player2Frame, player1Frame, "activePlayer2", "activePlayer1");
+    }
+
+
+
+function placeTile(tile) {
+    getSqHTMLFromLocalStorage();
+    console.log("lsgetitem gsq1 placetile", JSON.parse( localStorage.getItem("turn" ) ))
+    if (JSON.parse( localStorage.getItem("turn" )) === "Player1"){
+        console.log("turn in placeTile", JSON.parse( localStorage.getItem("turn" )) )
+        console.log("tile in placeTile", tile)
+        let selectedTile1=document.querySelector(tile); 
+        console.log("selectedTile in placeTile", selectedTile1)
+        localStorage.setItem(`selectedTile1`, JSON.stringify(selectedTile1));
+        console.log("turn in placeTile b4 switch to P2", JSON.parse( localStorage.getItem("turn" )) )
+        populateTile(charFileP1, picArray1, tokenP1, selectedTile1);
+        
+    }
+    else if (JSON.parse( localStorage.getItem("turn" )) === "Player2") {
         let selectedTile2=document.querySelector(tile); 
+       
         populateTile(charFileP2, picArray2, tokenP2, selectedTile2)
-        turn = "Player1"
-        intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
+
     };
     getWinMatrix();
 }
@@ -258,7 +261,9 @@ function placeTokenComp(len, lines){
 }
 
 function compChangePlayer(){ 
-        turn="Player1";
+    getSqHTMLFromLocalStorage()
+    console.log("lsgetitem gsq1 in CompChangeplayer", JSON.parse( localStorage.getItem("gridSquare1" ) ))
+    localStorage.setItem(`turn`, JSON.stringify("Player1")) ;
         intro.innerText="Player 1, Please Click on a Square to Place Your Token"     
     }
 
@@ -283,15 +288,62 @@ placeTokenComp(longestArrLength, longestLine)
 }
     
 function populateTile(charFile, picArray, token, selectedTile) {
-    if (selectedTile.innerHTML === "") {
+    console.log("turn in populateTile", JSON.parse( localStorage.getItem("turn" )) )
+     if(selectedTile.innerHTML === "") {
+        
         if (charFile == "char") {
             selectedTile.innerHTML = token;
+            console.log("selectedTile", selectedTile.id, selectedTile.innerHTML)
+            localStorage.setItem(`${selectedTile.id}`, JSON.stringify(`${selectedTile.innerHTML}`));
+            console.log("lsgetitem gsq1 for selected Tile", JSON.parse(localStorage.getItem("gridSquare1" ) ))
         }
         else if (charFile === "file") {
             selectedTile.appendChild(picArray[0]);//put slice in
             picArray.shift();
         }
+        changePlayer();
     }
+
+    function changePlayer(){
+        if(JSON.parse( localStorage.getItem("turn" )) === "Player1"){
+        if(mode=="human"){
+            localStorage.setItem(`turn`, JSON.stringify("Player2")) 
+            showActivePlayer(player2Frame, player1Frame, "activePlayer2", "activePlayer1");
+
+            console.log("turn in placeTile in Place Tile after switch to P2", JSON.parse( localStorage.getItem("turn" )) )
+            intro.innerText = "Player 2, Please Click on a Square to Place Your Token";}
+            if(mode=="computer"){
+                computerTurn();
+            }
+        
+    }
+    else if(JSON.parse( localStorage.getItem("turn" )) === "Player2"){
+        localStorage.setItem(`turn`, JSON.stringify("Player1")) 
+        showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
+        intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
+    }
+}
+
+    localStorageChanges();
+}
+function localStorageChanges(){
+    for(let i=0; i<squareIdArray.length; i++){
+        if(JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) )){
+        JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) )};
+       localStorage.setItem(`${squareIdArray[i]}`, JSON.stringify(document.querySelector(squareIdArray[i]).innerHTML));
+        console.log("get square from local storage in function", JSON.parse( localStorage.getItem( "#gridSquare1" ) ));
+    }
+}
+
+function getSqHTMLFromLocalStorage(){
+    console.log("getSqHTMLFromLocalStorage running")
+    for (let i = 0; i < squareIdArray.length; i++) 
+    {if((JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) ))){
+        console.log("Yesyesyes, getItem available")
+        console.log("!!in getSqHTMLFrom ls function innerHTML from Local storage before get", JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) ))
+        document.querySelector(`${squareIdArray[i]}`).innerHTML = JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) ); 
+        console.log("!!in getSqHTMLFrom ls gsq1 in function", JSON.parse( localStorage.getItem("gridSquare1" ) ))
+}}
 }
 
 //populates arrays where winner can be checked via the checkWinner function
@@ -310,6 +362,8 @@ function getWinMatrix() {
     }
     checkTie()
 }
+
+
 
 //checks rows / columns / diagonals in array to see if three values in one of these match
 function checkWinner() {
@@ -354,15 +408,24 @@ newGame.addEventListener("click", startNew);
 
 function startNew() {
     squareIdArray.forEach((sq) => document.querySelector(sq).innerHTML = "");
-    turn = "Player1";
+    localStorage.setItem(`turn`, JSON.stringify("Player1")) ;
     won = false;
     draw = false;
     winner = "";
     winMatrix=[];
-    intro.innerText = "Player 1, Please Click on a Square to Place Your X";
+    intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
+    console.log("turn in start new before place tile", JSON.parse( localStorage.getItem("turn" )) )
+    showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
     resetMode();
-    placeTile();
+    startLocalStorageChanges();
+    startTurn();
+    
 }
+function startLocalStorageChanges(){
+    for(let i =0; i<squareIdArray.length; i++){
+    localStorage.setItem(`${squareIdArray[i]}`, JSON.stringify(document.querySelector(squareIdArray[i]).innerHTML=""));
+    console.log("start again reset local storage should be null",  JSON.parse( localStorage.getItem(`${gridSquare[i]}`) ))
+}}
 
 
 function resetMode(){
