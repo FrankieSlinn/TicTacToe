@@ -21,7 +21,26 @@ h2{
     border: 0.1rem solid #fff;
     height: 25rem;
     width: 25rem;
+}
+.add-shadow{
 
+    animation: pulse 2s infinite;
+    animation-duration: 2.0s;
+    animation-name: flash;
+    animation-iteration-count: 2;
+}
+
+@keyframes flash {
+    0% {
+       box-shadow: none;
+    }
+    50% {
+        box-shadow: 5px 5px 20px 5px #aaa;
+     }
+
+    100% {
+        box-shadow: 7px 7px 20px 7px #ccc;
+    }
 }
 .grid-container{
     display: flex;

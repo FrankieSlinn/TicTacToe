@@ -70,6 +70,11 @@ let buttonMode=document.querySelector(".button-mode");
 let buttonHum=document.querySelector(".button-hum");
 let buttonComp=document.querySelector(".button-comp");
 
+//Sounds
+let actionSound= new Audio("action-sound-effect.mp3");
+let moveSound=new Audio("camera-clicking-sound-effect.mp3");
+let endGameSound=new Audio("Ending-sound-effect.mp3");
+
 
 let gridSquare = "";
 let squareId = "";
@@ -292,13 +297,13 @@ function populateTile(charFile, picArray, token, selectedTile) {
         
         if (charFile == "char") {
             selectedTile.innerHTML = token;
-            console.log("selectedTile", selectedTile.id, selectedTile.innerHTML)
             localStorage.setItem(`${selectedTile.id}`, JSON.stringify(`${selectedTile.innerHTML}`));
-            console.log("lsgetitem gsq1 for selected Tile", JSON.parse(localStorage.getItem("gridSquare1" ) ))
+            moveSound.play();
         }
         else if (charFile === "file") {
             selectedTile.appendChild(picArray[0]);//put slice in
             picArray.shift();
+            moveSound.play();
         }
         changePlayer();
     }
@@ -380,6 +385,8 @@ function checkWinner() {
 function winChanges(player, WinCount, Wins, LossCount, Losses){
     winner=player;
     intro.innerText=`${player} Wins!`
+    endGameSound.play();
+    grid.classList.add('add-shadow')
     WinCount+=1;
     Wins.innerText=WinCount;
     LossCount+=1;
@@ -394,6 +401,7 @@ function checkTie() {
         //check all squares filled and that no-one has won
         if (squareIdArray.every((val, i, arr) => document.querySelector(val).innerHTML != "") && won != true) {
             intro.innerText = "You Have a Draw!";
+            endGameSound.play();
             drawCount += 1;
             P1Draws.innerText = drawCount;
             P2Draws.innerText = drawCount;
@@ -408,12 +416,14 @@ newGame.addEventListener("click", startNew);
 function startNew() {
     squareIdArray.forEach((sq) => document.querySelector(sq).innerHTML = "");
     localStorage.setItem(`turn`, JSON.stringify("Player1")) ;
+    //actionSound.play();
     won = false;
     draw = false;
     winner = "";
     winMatrix=[];
     intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
     P2TokenFrame.style.display="inline-block";
+    grid.classList.remove('add-shadow')
     showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
     resetMode();
     startLocalStorageChanges();
