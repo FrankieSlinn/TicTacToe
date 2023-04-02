@@ -7,35 +7,35 @@ The Build was developed to the below Specifications:
 
 ###Core Requirements
 
--As a user, I should be able to start a new tic tac toe game
--As a user, I should be able to click on a square to add X first and then O, and so on
--As a user, I should be shown a message after each turn for if I win, lose, tie or who's turn it is next
--As a user, I should not be able to click the same square twice
--As a user, I should be shown a message when I win, lose or tie
--As a user, I should not be able to continue playing once I win, lose, or tie
--As a user, I should be able to play the game again without refreshing the page
+-As a user, I should be able to start a new tic tac toe game.
+-As a user, I should be able to click on a square to add X first and then O, and so on.
+-As a user, I should be shown a message after each turn for if I win, lose, tie or who's turn it is next.
+-As a user, I should not be able to click the same square twice.
+-As a user, I should be shown a message when I win, lose or tie.
+-As a user, I should not be able to continue playing once I win, lose, or tie.
+-As a user, I should be able to play the game again without refreshing the page.
 
 ###Additional Implemented Features
 
--Keep track of multiple game rounds with a win, lose and tie counter
--Allow players to customize their tokens (X, O, name, picture, etc)
--Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
--Involve Audio in your game
--Create an AI opponent: teach JavaScript to play an unbeatable game against you
--Make your site fully responsive so that it is playable from a mobile phone
--Get inventive with your styling e.g. use hover effects or animations
+-Keep track of multiple game rounds with a win, lose and tie counter.
+-Allow players to customize their tokens (X, O, name, picture, etc).
+-Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity.
+-Involve Audio in your game.
+-Create an AI opponent: teach JavaScript to play an unbeatable game against you.
+-Make your site fully responsive so that it is playable from a mobile phone.
+-Get inventive with your styling e.g. use hover effects or animations.
 
 ##Technologies / Approach
 
--In the beginning a wireframe was created for the page layout
+-In the beginning a wireframe was created for the page layout.
 ![Wireframe](WireFrame.jpg "Wireframe")
--Pseudocode was written to create a simple version of the code and a feeling for the best approach to the project
+-Pseudocode was written to create a simple version of the code and a feeling for the best approach to the project.
 ![Pseudocode](Pseudocode.txt "Pseudocode")
--User stories were written to capture the requirements in a broad, easy to understand way
+-User stories were written to capture the requirements in a broad, easy to understand way.
 ![User Stories](UserStories.txt "User Stories")
--Initially the core Javascript changes were implemented before styling the game
--Code was created folder converted to a GitHub Repository
--Languages: HTML, CSS, JavaScript
+-Initially the core Javascript changes were implemented before styling the game.
+-Code was created folder converted to a GitHub Repository.
+-Languages: HTML, CSS, JavaScript.
 -Frequent commits were made to save progress on an ongoing basis. Hard Git resets were carried out when code needed to be changed to its previous state.
 
 ##Solving for the Winner
@@ -61,7 +61,7 @@ The Build was developed to the below Specifications:
 
 ##Game Progress Stays after Refresh
 
--Local Storage was utilised to maintain the game progress after the page is refreshed. This was achieved by setting both the grid square innerHTML and the current player to be stored. Throughout the game the stored grid square and current payer was retrieved from local storage to ensure that the progress made was consistently captured. 
+-Local Storage was utilised to maintain the game progress after the page is refreshed. This was achieved by setting both the grid square innerHTML and the current player to be stored. Throughout the game the stored grid square and current payer was retrieved from localStorage to ensure that the progress made was consistently captured. 
 
 ##Challenges
 
