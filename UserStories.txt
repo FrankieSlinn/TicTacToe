@@ -1,0 +1,24 @@
+
+User Stories: 
+
+-As a user I want a grid to place my tokens on. 
+-As a user I want to be abe to choose my token(img or characters) so I can choose the ones I like best. 
+-As a user I want to be able to place my tokens on the grid to play the game. 
+-As a user I want to see the score(win / lose / draw) to check how I'm doing.
+-As a user I want to be able to see the opponent's score to be able to compare scores. 
+-As a user I want to have a skillful computer opponent to test my ability. 
+-As a user I want to be able to maintain my progress if I refresh the page to be able to continue with the game. 
+-As a user I want to be able to start a new game when the game is finished to be able to continue playing. 
+-As a user I want to be able to experience sound effects to make the game more exciting. 
+-As a user I want to be able to play for two players(player 1 and player 2) in order to complete a game. 
+-As a user I want a clear indication if someone wins to make the game easier to follow. 
+-As a user I want to get information on the game(turns, wins) to make it clear as to what's happening with the game.
+-As a user I want not to be able to continue with the game if someone has won or if there's a draw as the game will have finished. 
+-As a user I want to make sure that no more than one token can be placed in a square per game to ensure the users can stick to the game rules. 
+-As a user I want to be able to choose between a computer and human player mode. 
+-As a user I want to make sure I cannot enter a token name with more than five letters to that the token name fits in the grid. 
+-As a user I want to clearly see which player's turn it is to prevent any potential confusion. 
+-As a user I want to use the game on a tablet and with a mobile phone so that I can play the game anywhere. 
+
+
+

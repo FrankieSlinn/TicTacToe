@@ -1,13 +1,5 @@
-A README.md file, including
-Explanations of the technologies used, the approach taken, installation instructions, unsolved problems, etc.
-Follow this mini-lesson on writing documentation for your project
-Sample project readmes:
-https://github.com/lerwickbrianw/SEI-Project1-Simon
-https://github.com/ctrevino-mx/trivia-game
-https://github.com/reemharbi/BloodApp
-https://github.com/AlkhaldiAzzam/Project1-Tic-Tac-Toe
 
-#Tic Tac Toe - Franzisksa Kissling
+#Tic Tac Toe - Franziska Kissling
 
 ##Scope
 
@@ -38,9 +30,12 @@ The Build was developed to the below Specifications:
 -In the beginning a wireframe was created for the page layout
 ![Wireframe](WireFrame.jpg "Wireframe")
 -Pseudocode was written to create a simple version of the code and a feeling for the best approach to the project
+![Pseudocode](Pseudocode.txt "Pseudocode")
+-User stories were written to capture the requirements in a broad, easy to understand way
+![User Stories](UserStories.txt "User Stories")
 -Initially the core Javascript changes were implemented before styling the game
 -Code was created folder converted to a GitHub Repository
--Languages: HTML, CSS, Javascript
+-Languages: HTML, CSS, JavaScript
 -Frequent commits were made to save progress on an ongoing basis. Hard Git resets were carried out when code needed to be changed to its previous state.
 
 ##Solving for the Winner

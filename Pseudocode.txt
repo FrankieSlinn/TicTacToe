@@ -1,0 +1,49 @@
+
+DISPLAY grid
+DISPLAY Player1 - Wins, Losses, Draws
+DISPLAY Player2 - Wins, Losses, Draws
+DISPLAY Mode - Computer or Human
+DISPLAY Change Token Button
+DISPLAY Reset Button
+
+Change Token Button.onclick:
+    DISPLAY Player 1 Character Input Field
+    DISPLAY Player 1 File Input Field
+    DISPLAY Player 2 Character Input Field
+    DISPLAY Plaer 2 File Input Field
+
+Lines.FOR EACH:
+    CREATE Line Array
+    CREATE Array of Lines
+    FOR EACH Token: 
+        CHECK if Token in Line 3 Times
+
+WHILE Win==False:
+    Grid.onclick:
+    Grid = Token
+    PLAY Move Audio
+    UPDATE Local Storage(GridValue)
+    TOGGLE Player
+    UPDATE Local Storage(Player)
+    RETRIEVE GridValue && Player from Local Storage
+
+IF Win==False:
+    IF All Tiles have Values:
+    DISPLAY Draw message
+    PLAY Game Complete Audio
+    FOR EACH Player: 
+        UPDATE Draw Amount 
+
+IF Win==True:
+    DISPLAY Win / Lose / Draw Message
+    UPDATE Win / Lose Draw Score
+    ANIMATE Grid
+    PLAY Game Complete Audio
+
+Reset Button.onclick: 
+    DELETE Tokens in Grid
+    SET Turn to Player 1
+    DELETE Local Storage
+
+
+
