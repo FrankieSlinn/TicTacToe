@@ -25,7 +25,7 @@ h2{
 .add-shadow{
 
     animation: pulse 2s infinite;
-    animation-duration: 2.0s;
+    animation-duration: 1s;
     animation-name: flash;
     animation-iteration-count: 2;
 }
@@ -35,11 +35,11 @@ h2{
        box-shadow: none;
     }
     50% {
-        box-shadow: 5px 5px 20px 5px #aaa;
+        box-shadow: 5px 5px 20px 5px #777;
      }
 
     100% {
-        box-shadow: 7px 7px 20px 7px #ccc;
+        box-shadow: 7px 7px 20px 7px #bbb;
     }
 }
 .grid-container{

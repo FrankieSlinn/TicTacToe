@@ -202,13 +202,14 @@ buttonComp.addEventListener("click", function(){
     modeMessage.classList.add("mode-select");  
     })
 
-    buttonHum.addEventListener("click", function(){
-        mode = "human";
-        document.querySelectorAll(".button-mode").forEach((a)=>{
-            a.style.display="none"})
-        modeMessage.innerText="You are now playing a Regular Person" ; 
-        modeMessage.classList.add("mode-select");  
-        })
+buttonHum.addEventListener("click", function(){
+    mode = "human";
+    document.querySelectorAll(".button-mode").forEach((a)=>{
+        a.style.display="none"})
+    modeMessage.innerText="You are now playing a Regular Person" ; 
+    modeMessage.classList.add("mode-select");  
+    })
+    
 
     function startTurn() {
         getSqHTMLFromLocalStorage();
@@ -256,12 +257,23 @@ function placeTokenComp(len, lines){
             
 //checks if len is one or if line with 2 char has no empty spaces. In the latter case need to revert to 1 char so can place tile.
             else if(len===1||(len===2&&!document.querySelector(lines[j]).some((a)=>document.querySelector(a).innerHTML===""))){
-                if(document.querySelector(lines[j]).innerHTML===""){
+                if(document.querySelector('#gridSquare5').innerHTML==""){
+                    document.querySelector('#gridSquare5').innerHTML=tokenP2;
+                    i=15;
+                    break;
+                }
+                else if(document.querySelector(lines[j]).innerHTML===""){
                     document.querySelector(lines[j]).innerHTML=tokenP2;
                     compChangePlayer()
                     i=15;
                 break} 
             }            
+    }
+}
+function compPlaceTokenMiddle(){
+    if(lines[i].includes('#gridSquare5')&& document.querySelector('#gridSquare5').innerHTML==""){
+        document.querySelector('#gridSquare5').innerHTML=tokenP2;
+
     }
 }
 
@@ -423,13 +435,18 @@ function startNew() {
     winMatrix=[];
     intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
     P2TokenFrame.style.display="inline-block";
-    grid.classList.remove('add-shadow')
+    grid.classList.remove('add-shadow');
+    startNewFunctions();
+}
+
+function startNewFunctions(){
     showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
     resetMode();
     startLocalStorageChanges();
     startTurn();
     refillPicArraySetUp();
 }
+
 function startLocalStorageChanges(){
     for(let i =0; i<squareIdArray.length; i++){
     localStorage.setItem(`${squareIdArray[i]}`, JSON.stringify(document.querySelector(squareIdArray[i]).innerHTML=""));
