@@ -3,7 +3,7 @@
 
 ##Description
 
-This project was created for people who love playing tic tac toe. The game offers the player choices, like if playing a regular person or  a computer opponent. Users also have the option of using a handle or their favourite picture as a token. 
+This project was created for people who love playing tic tac toe. The game offers the player choices, like playing a regular person or vs a computer opponent. Users also have the option of using a handle or their favourite picture as a token. 
 The player can use the game on tablets and smart phones.  The game works best on modern browsers.
 If a user lives somewhere with a bad internet connection: No worries! The game remembers the progress before the site disconnects. 
 

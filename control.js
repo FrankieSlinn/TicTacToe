@@ -83,20 +83,21 @@ let winner = ""
 let draw = false;
 let winMatrix = [];
 
-//open token change options section
+//open token change options section after change token button selected
 changeToken.addEventListener("click", function(){
     sectionToken.style.display="inline-block";
     changeToken.style.display="none";
     change.style.display="none";
 })
-
+//gets user back to main screen quickly if back to game button is clicked
 backToGame.addEventListener("click", function(){
     sectionToken.style.display="none";
     backToGame.style.display="none";
     changeToken.style.display="inline-block";
+    change.style.display="inline-block";
 })
 
-//choose icon function
+//choose token for player 1
 fileP1.addEventListener("change", function (e) {
     //displays if token is a character or a file
     picArray1=[];
@@ -105,7 +106,7 @@ fileP1.addEventListener("change", function (e) {
     fileElementArray(file1, "ImgP1", picArray1, 1)
 
 })
-
+//choose token for player 2
 fileP2.addEventListener("change", function (evt) {
     //displays if token is a character or a file
     picArray2=[];
@@ -116,7 +117,7 @@ fileP2.addEventListener("change", function (evt) {
 
 
 
-//To be able to place multiple images, multiple images need to be created. These are stored in an array.
+//To be able to place multiple image tokens, multiple images need to be created. These are stored in an array.
 //Array gets refilled after new game starts
 function fileElementArray(file, ImgP, picArray, num) {
     for (i = 0; i < 10; i++) {
@@ -135,7 +136,7 @@ function fileElementArray(file, ImgP, picArray, num) {
         fileChanges(token2, picArray2, fileMess2, tokenConfP2, chooseTokenP2, tokenP2)
     }
 }
-
+//Confirmation a picture token has been uploaded -  Picture under player displayed
 function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP, tokenP) {
     token.innerText = "";
     token.appendChild(picArray[0]);
@@ -146,7 +147,7 @@ function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP, tokenP
     tokenP="";
 }
 
-//For char token updates
+//Changes token if a character token is selected for player 1 
 submitButton1.addEventListener("click", function (e) {
     e.preventDefault();
     charFileP1="char";
@@ -158,7 +159,7 @@ submitButton1.addEventListener("click", function (e) {
     }
     else{noChar(tokenConfP1)}
 })
-
+//Changes token if a character token is selected for player 2 
 submitButton2.addEventListener("click", function (e) {
     console.log("chooseTokenP2 in submitlistener", chooseTokenP2)
     e.preventDefault();
@@ -173,28 +174,27 @@ submitButton2.addEventListener("click", function (e) {
 else{noChar(tokenConfP2)}
 })
 
+//Error message displays
 function charTooLong(tokenConf){tokenConf.innerText = "   Your Token is Over 5 Letters Long. Please Use a Shorter Token"};
 
 function noChar(tokenConf){tokenConf.innerText = "   Please Enter a Token Before You Submit"}
 
+//clears token innerHTML before a new token is selected to prevent 2 tokens beinf displayed
 function submitCharChanges(token, tokenP, tokenConfP, chooseTokenP){
     token.innerHTML = ""
     token.innerHTML = chooseTokenP.value;
     tokenP.innerHTML = "";
-    console.log("chooseTokenP2", chooseTokenP.value, tokenP)
-    //tokenP = chooseTokenP.value;
-    console.log("tokenP2", tokenP)
     tokenConfP.innerText = `  You have chosen ${tokenP}`;
-
 }
-console.log("tokenP2 outside function", tokenP2)
 
 startTurn()
 
+//Starts computer mode if computer button selected
 buttonComp.addEventListener("click", function(){
     mode = "computer";
     charFileP2 = "char";
     P2TokenFrame.style.display="none";
+    backToGame.style.display="inline-block";
     token2.innerText="O";
     tokenP2="O";
     document.querySelectorAll(".button-mode").forEach((a)=>{
@@ -203,11 +203,13 @@ buttonComp.addEventListener("click", function(){
     modeMessage.classList.add("mode-select");  
     })
 
+//Starts human mode if human button selected
 buttonHum.addEventListener("click", function(){
     mode = "human";
     humanMode();
-
     })
+
+//Carries out human mode changes
 function humanMode(){
     document.querySelectorAll(".button-mode").forEach((a)=>{
         a.style.display="none"})
