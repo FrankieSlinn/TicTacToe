@@ -46,10 +46,10 @@ https://git.generalassemb.ly/franziska-kissling/TicTacToe/blob/main/UserStories.
 
 ##  Solving for the Winner
 
-- Rows, columns and diagonals were created as arrays and placed into an overall array. 
-- If the symbols in one of these all matched the game was captured as won. 
-- The winner was the player with the same tokens as the symbols. 
-- For picture tokens, the image class was placed at the end containing P1 / P2. 
+- Rows, columns and diagonals are created as arrays and placed into an overall array. 
+- If the symbols in one of these the arrays all match the game is captured as won. 
+- The winner is captured as the player with the tokens that all match. 
+- For picture tokens, in the HTML the image class was placed at the end containing P1 / P2. 
 - A slice was done to extract "P1" or "P2" from the inner HTML to capture which player had won. 
 
 ##  Design / Sound
