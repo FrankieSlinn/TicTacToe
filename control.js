@@ -75,7 +75,6 @@ let actionSound= new Audio("action-sound-effect.mp3");
 let moveSound=new Audio("camera-clicking-sound-effect.mp3");
 let endGameSound=new Audio("Ending-sound-effect.mp3");
 
-
 let gridSquare = "";
 let squareId = "";
 let won = false;
@@ -104,7 +103,6 @@ fileP1.addEventListener("change", function (e) {
     charFileP1 = "file";
     let file1 = e.target.files[0];
     fileElementArray(file1, "ImgP1", picArray1, 1)
-
 })
 //choose token for player 2
 fileP2.addEventListener("change", function (evt) {
@@ -114,8 +112,6 @@ fileP2.addEventListener("change", function (evt) {
     let file2 = evt.target.files[0];
     fileElementArray(file2, "ImgP2", picArray2, 2)
 })
-
-
 
 //To be able to place multiple image tokens, multiple images need to be created. These are stored in an array.
 //Array gets refilled after new game starts
@@ -136,6 +132,7 @@ function fileElementArray(file, ImgP, picArray, num) {
         fileChanges(token2, picArray2, fileMess2, tokenConfP2, chooseTokenP2, tokenP2)
     }
 }
+
 //Confirmation a picture token has been uploaded -  Picture under player displayed
 function fileChanges(token, picArray, fileMess, tokenConfP, chooseTokenP, tokenP) {
     token.innerText = "";
@@ -216,10 +213,9 @@ function humanMode(){
     modeMessage.innerText="You are now playing a Regular Person" ; 
     modeMessage.classList.add("mode-select");
 }
-
+//Checks user cannot continue game if won
     function startTurn() {
         getSqHTMLFromLocalStorage();
-    console.log("lsgetitem gsq1 after set up tiles start turn", JSON.parse( localStorage.getItem("gridSquare1" ) ))
         if(mode==="human"||localStorage.setItem(`turn`, JSON.stringify("Player1"))){
            
         for (let i = 0; i < squareIdArray.length; i++) {
@@ -231,7 +227,7 @@ function humanMode(){
     }
     }
 
-
+//Routes to functions in flow to place tile / check if there's a winner or draw
 function placeTile(tile) {
     getSqHTMLFromLocalStorage();
     if (JSON.parse( localStorage.getItem("turn" )) === "Player1"){
@@ -246,21 +242,21 @@ function placeTile(tile) {
     getWinMatrix();
 }
 
+//Highlights the frame of the current player
 function showActivePlayer(playerFrameX, playerFrameY, activePlayerX, activePlayerY){
     playerFrameX.classList.add(activePlayerX);
     playerFrameY.classList.remove(activePlayerY);
 }
 
+//Logic for computer placing tiles
 function placeTokenComp(len, lines){
     for(j=0; j<lines.length; j++){
         if(len==2){
             if(document.querySelector(lines[j]).innerHTML===""){
-                console.log("len two no innerhtml on line")
                 document.querySelector(lines[j]).innerHTML=tokenP2;
                 compChangePlayer()
                 i=15;
-            break} }
-            
+            break} }            
 //checks if len is one or if line with 2 char has no empty spaces. In the latter case need to revert to 1 char so can place tile.
             else if(len===1||(len===2&&!document.querySelector(lines[j]).some((a)=>document.querySelector(a).innerHTML===""&&!lines.includes("P2")&&!lines.includes(tokenP2)))){
                 if(document.querySelector('#gridSquare5').innerHTML==""){
@@ -276,6 +272,8 @@ function placeTokenComp(len, lines){
             }            
     }
 }
+
+//Ensures the computer takes the middle square if empty
 function compPlaceTokenMiddle(){
     if(lines[i].includes('#gridSquare5')&& document.querySelector('#gridSquare5').innerHTML==""){
         document.querySelector('#gridSquare5').innerHTML=tokenP2;
@@ -283,7 +281,7 @@ function compPlaceTokenMiddle(){
     }
 }
 
-
+//Switches from the computer to player 1
 function compChangePlayer(){ 
     getSqHTMLFromLocalStorage()
     console.log("lsgetitem gsq1 in CompChangeplayer", JSON.parse( localStorage.getItem("gridSquare1" ) ))
@@ -291,11 +289,11 @@ function compChangePlayer(){
         intro.innerText="Player 1, Please Click on a Square to Place Your Token"     
     }
 
+//Initiates computer's turn
 function computerTurn(){
-filtForP1();
-        
+filtForP1();      
 }
-//filtering criteria to check how many P1 tokens in line with a blank space. Needed for computer mode. 
+//Filtering criteria to check how many P1 tokens in line with a blank space. Needed for computer mode. 
 function filtForP1(){
     longestArrLength=0;
     let longestLine="";
@@ -308,7 +306,8 @@ function filtForP1(){
 }
 placeTokenComp(longestArrLength, longestLine)
 }
-    
+   
+//Places token for humans
 function populateTile(charFile, picArray, token, selectedTile) {
     checkHuman();
      if(selectedTile.innerHTML === "") {     
@@ -325,12 +324,14 @@ function populateTile(charFile, picArray, token, selectedTile) {
         changePlayer();
     }
 
+//Checks if a player is a human being
     function checkHuman(){
         if (mode=="human"){
         humanMode();
     }
     }
 
+//Switches to the next player
     function changePlayer(){
         if(JSON.parse( localStorage.getItem("turn" )) === "Player1"){
         if(mode=="human"){
@@ -339,8 +340,7 @@ function populateTile(charFile, picArray, token, selectedTile) {
             intro.innerText = "Player 2, Please Click on a Square to Place Your Token";}
             if(mode=="computer"){
                 computerTurn();
-            }
-        
+            }      
     }
     else if(JSON.parse( localStorage.getItem("turn" )) === "Player2"){
         localStorage.setItem(`turn`, JSON.stringify("Player1")) 
@@ -348,18 +348,19 @@ function populateTile(charFile, picArray, token, selectedTile) {
         intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
     }
 }
-
     localStorageChanges();
 }
+
+//Updates local storage data's inner HTML
 function localStorageChanges(){
     for(let i=0; i<squareIdArray.length; i++){
         if(JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) )){
         JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) )};
        localStorage.setItem(`${squareIdArray[i]}`, JSON.stringify(document.querySelector(squareIdArray[i]).innerHTML));
-        console.log("get square from local storage in function", JSON.parse( localStorage.getItem( "#gridSquare1" ) ));
     }
 }
 
+//Retrieves innerHTML from local storage
 function getSqHTMLFromLocalStorage(){
     for (let i = 0; i < squareIdArray.length; i++) 
     {if((JSON.parse( localStorage.getItem( `${squareIdArray[i]}` ) ))){
@@ -382,7 +383,7 @@ function getWinMatrix() {
     checkTie()
 }
 
-//checks rows / columns / diagonals in array to see if three values in one of these match
+//Checks rows / columns / diagonals in array to see if three values in one of these match to determine winner
 function checkWinner() {
     if (winMatrix.every((val, i, arr) => val === arr[0] == true) && !winMatrix[0] == "" && winMatrix.length == 3 && won == false) {
         if ((winMatrix[0] === "P1" || winMatrix[0] == tokenP1) && won == false) {
@@ -395,6 +396,8 @@ function checkWinner() {
 
 }
 
+
+//Updates changes after a player has won
 function winChanges(player, WinCount, Wins, LossCount, Losses){
     winner=player;
     intro.innerText=`${player} Wins!`
@@ -407,7 +410,7 @@ function winChanges(player, WinCount, Wins, LossCount, Losses){
     won=true;
 }
 
-//if no-one has one checks to see if all squares populated. In this case it is a draw
+//if no-one has won checks to see if all squares populated. In this case it is a draw
 function checkTie() {
     if (draw === false) {
         //check all squares filled and that no-one has won
@@ -425,6 +428,7 @@ function checkTie() {
 //starts new game if new game button clicked
 newGame.addEventListener("click", startNew);
 
+//Updates changes when new game is started
 function startNew() {
     squareIdArray.forEach((sq) => document.querySelector(sq).innerHTML = "");
     localStorage.setItem(`turn`, JSON.stringify("Player1")) ;
@@ -441,6 +445,7 @@ function startNew() {
     startNewFunctions();
 }
 
+//List of new game functions called when the new game is started
 function startNewFunctions(){
     showActivePlayer(player1Frame, player2Frame, "activePlayer1", "activePlayer2");
     resetMode();
@@ -449,19 +454,21 @@ function startNewFunctions(){
     refillPicArraySetUp();
 }
 
+//Updates local storage for new game
 function startLocalStorageChanges(){
     for(let i =0; i<squareIdArray.length; i++){
     localStorage.setItem(`${squareIdArray[i]}`, JSON.stringify(document.querySelector(squareIdArray[i]).innerHTML=""));
     console.log("start again reset local storage should be null",  JSON.parse( localStorage.getItem(`${gridSquare[i]}`) ))
 }}
 
-
+//Resets the player mode
 function resetMode(){
     document.querySelectorAll(".button-mode").forEach((a)=>{
         a.style.display="inline-block"})
     modeMessage.innerText="Play against:" ; 
     modeMessage.classList.remove("mode-select"); 
 }
+
 //Ensures the user can continue to play with images by refilling image array if low
 function  refillPicArraySetUp(){
     console.log("refillPicArraySetUp running", picArray1, picArray2)
@@ -471,7 +478,7 @@ function  refillPicArraySetUp(){
     else if(picArray2.length<10&& charFileP2=="file"){
         refillPicArray(".ImgP2", picArray2);}}
     
-// Create a copy of image to repenish image array
+// Creates a copy of image to repenish image array
 function refillPicArray(Img, picArray){
     let el = document.querySelector(Img);
     let clone = el.cloneNode(true);
