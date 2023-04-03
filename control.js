@@ -424,7 +424,9 @@ newGame.addEventListener("click", startNew);
 function startNew() {
     squareIdArray.forEach((sq) => document.querySelector(sq).innerHTML = "");
     localStorage.setItem(`turn`, JSON.stringify("Player1")) ;
-    //actionSound.play();
+    sectionToken.style.display="none";
+    change.style.display="inline-block";
+    changeToken.style.display="inline-block";
     won = false;
     draw = false;
     winner = "";
