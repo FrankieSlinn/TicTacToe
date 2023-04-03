@@ -95,6 +95,7 @@ let winMatrix = [];
 //open token change options section after change token button selected
 changeToken.addEventListener("click", function () {
   sectionToken.style.display = "inline-block";
+  backToGame.style.display = "inline-block";
   changeToken.style.display = "none";
   change.style.display = "none";
 });
@@ -103,7 +104,7 @@ backToGame.addEventListener("click", function () {
   sectionToken.style.display = "none";
   backToGame.style.display = "none";
   changeToken.style.display = "inline-block";
-  change.style.display = "inline-block";
+  change.style.display = "block";
 });
 
 //choose token for player 1
@@ -407,7 +408,7 @@ function populateTile(charFile, picArray, token, selectedTile) {
 
   //Switches to the next player
   function changePlayer() {
-    if (JSON.parse(localStorage.getItem("turn")) === "Player1") {
+    if (JSON.parse(localStorage.getItem("turn")) === "Player1"&&won===false&&draw===false) {
       if (mode == "human") {
         localStorage.setItem(`turn`, JSON.stringify("Player2"));
         showActivePlayer(
@@ -422,7 +423,7 @@ function populateTile(charFile, picArray, token, selectedTile) {
       if (mode == "computer") {
         computerTurn();
       }
-    } else if (JSON.parse(localStorage.getItem("turn")) === "Player2") {
+    } else if (JSON.parse(localStorage.getItem("turn")) === "Player2"&&won===false&&draw===false) {
       localStorage.setItem(`turn`, JSON.stringify("Player1"));
       showActivePlayer(
         player1Frame,
@@ -447,9 +448,10 @@ function showActivePlayer(
     playerFrameX.classList.add(activePlayerX);
     playerFrameY.classList.remove(activePlayerY);
   }
-
+  
+//Ensures that player settings are kept if the machine is refreshed
 function localStorageChangesPlayer(){
-    if((JSON.parse(localStorage.getItem("turn")) === "Player1")){
+    if((JSON.parse(localStorage.getItem("turn")) === "Player1" &&won===false&&draw===false)){
         showActivePlayer(
             player1Frame,
             player2Frame,
@@ -458,7 +460,7 @@ function localStorageChangesPlayer(){
           );
     intro.innerText="Player 1, Please Click on a Square to Place Your Token";
     }
-    else if (JSON.parse(localStorage.getItem("turn")) === "Player2") {
+    else if (JSON.parse(localStorage.getItem("turn")) === "Player2" &&won===false&&draw===false) {
         showActivePlayer(
             player2Frame,
             player1Frame,
@@ -576,7 +578,6 @@ function startNew() {
   winner = "";
   winMatrix = [];
   intro.innerText = "Player 1, Please Click on a Square to Place Your Token";
-  P2TokenFrame.style.display = "inline-block";
   grid.classList.remove("add-shadow");
   startNewFunctions();
 }

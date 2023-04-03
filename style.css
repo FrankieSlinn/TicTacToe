@@ -84,8 +84,14 @@ main {
 .TokenWording {
   font-weight: 700;
 }
+.P2TokenFrame{
+    text-align: center;
+}
 .token {
   display: block;
+}
+.change-token-container{
+    text-align:center;
 }
 .change {
     display: block;
