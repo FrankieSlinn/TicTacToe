@@ -1,9 +1,15 @@
 
 #Tic Tac Toe - Franziska Kissling
 
+##Description
+
+This project was created for people who love playing tic tac toe. The game offers the player choices, like if playing a regular person or  a computer opponent. Users also have the option of using a handle or their favourite picture as a token. 
+The player can use the game on tablets and smart phones.  The game works best on modern browsers.
+If a user lives somewhere with a bad internet connection: No worries! The game remembers the progress before the site disconnects. 
+
 ##Scope
 
-The Build was developed to the below Specifications: 
+The Build was developed lovingly to the below Specifications: 
 
 ###Core Requirements
 
@@ -21,7 +27,7 @@ The Build was developed to the below Specifications:
 -Allow players to customize their tokens (X, O, name, picture, etc).
 -Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity.
 -Involve Audio in your game.
--Create an AI opponent: teach JavaScript to play an unbeatable game against you.
+-Create an AI opponent: teach JavaScript to play an interesting game against you.
 -Make your site fully responsive so that it is playable from a mobile phone.
 -Get inventive with your styling e.g. use hover effects or animations.
 
@@ -52,6 +58,8 @@ The Build was developed to the below Specifications:
 -A flashing effect was added to confirm when the game was won. This was done using the CSS Animation commands with keyframes.
 -The site was made compatible with multiple device widths to optimise the user experience. 
 -Sound effects were added for when a player places a tile and when a player wins the game. 
+Below is a screenshot of the game:
+![Screenshot](Screenshot.png "Screenshot")
 
 ##Token Selection
 
