@@ -259,10 +259,9 @@ function humanMode() {
 //Checks user cannot continue game if won
 function startTurn() {
   getSqHTMLFromLocalStorage();
+  localStorageChangesPlayer();
   if (
-    mode === "human" ||
-    localStorage.setItem(`turn`, JSON.stringify("Player1"))
-  ) {
+    mode === "human") {
     for (let i = 0; i < squareIdArray.length; i++) {
       document
         .querySelector(squareIdArray[i])
@@ -279,6 +278,7 @@ function startTurn() {
 //Routes to functions in flow to place tile / check if there's a winner or draw
 function placeTile(tile) {
   getSqHTMLFromLocalStorage();
+  localStorageChangesPlayer()
   if (JSON.parse(localStorage.getItem("turn")) === "Player1") {
     let selectedTile1 = document.querySelector(tile);
     localStorage.setItem(`selectedTile1`, JSON.stringify(selectedTile1));
@@ -290,16 +290,7 @@ function placeTile(tile) {
   getWinMatrix();
 }
 
-//Highlights the frame of the current player
-function showActivePlayer(
-  playerFrameX,
-  playerFrameY,
-  activePlayerX,
-  activePlayerY
-) {
-  playerFrameX.classList.add(activePlayerX);
-  playerFrameY.classList.remove(activePlayerY);
-}
+
 
 //Logic for computer placing tiles
 function placeTokenComp(len, lines) {
@@ -444,6 +435,38 @@ function populateTile(charFile, picArray, token, selectedTile) {
     }
   }
   localStorageChanges();
+}
+
+//Highlights the frame of the current player
+function showActivePlayer(
+    playerFrameX,
+    playerFrameY,
+    activePlayerX,
+    activePlayerY
+  ) {
+    playerFrameX.classList.add(activePlayerX);
+    playerFrameY.classList.remove(activePlayerY);
+  }
+
+function localStorageChangesPlayer(){
+    if((JSON.parse(localStorage.getItem("turn")) === "Player1")){
+        showActivePlayer(
+            player1Frame,
+            player2Frame,
+            "activePlayer1",
+            "activePlayer2"
+          );
+    intro.innerText="Player 1, Please Click on a Square to Place Your Token";
+    }
+    else if (JSON.parse(localStorage.getItem("turn")) === "Player2") {
+        showActivePlayer(
+            player2Frame,
+            player1Frame,
+            "activePlayer2",
+            "activePlayer1"
+          );
+          intro.innerText="Player 2, Please Click on a Square to Place Your Token";
+}
 }
 
 //Updates local storage data's inner HTML
