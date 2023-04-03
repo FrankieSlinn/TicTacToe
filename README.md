@@ -79,9 +79,10 @@ Below is a screenshot of the game:
 
 ##Unsolved Problems / Future Features
 
--Currently there are no unsolved problems. 
+-Ensure that customised tokens are added / retrieved from local storage. 
+-Make Einstein the computer player a bit smarter.
 -Going forwards it would be good to make the game playable with two people. 
--A tic tac toe Sudhoku game could be created where both players take turns working together to complete the Sudhoku puzzle. 
+-Create merchandise for fans of the site. 
 -Ko-Fi could be linked to the site so any user who love the game and would like to make a donation can. 
 
 
