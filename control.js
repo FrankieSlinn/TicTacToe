@@ -196,6 +196,7 @@ buttonComp.addEventListener("click", function(){
     charFileP2 = "char";
     P2TokenFrame.style.display="none";
     token2.innerText="O";
+    tokenP2="O";
     document.querySelectorAll(".button-mode").forEach((a)=>{
         a.style.display="none"})
     modeMessage.innerText="You are now playing Einstein, the Computer" ; 
@@ -204,6 +205,7 @@ buttonComp.addEventListener("click", function(){
 
 buttonHum.addEventListener("click", function(){
     mode = "human";
+    humanMode();
 
     })
 function humanMode(){
