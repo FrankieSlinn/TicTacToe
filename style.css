@@ -94,7 +94,7 @@ main {
     text-align:center;
 }
 .change {
-    display: block;
+ display: block;
   margin: 2rem;
 }
 .game-mode {
@@ -174,6 +174,9 @@ button:hover,
   .back-to-game {
     margin: 0 1.5rem 0 1.5rem;
   }
+  .gridSquare{
+    font-size: 1.5rem;
+  }
 }
 @media screen and (max-width: 480px) {
   body {
@@ -193,6 +196,9 @@ button:hover,
   .grid {
     height: 20rem;
     width: 20rem;
+  }
+  .gridSquare{
+    font-size: 1.5rem;
   }
   section-token {
     margin-top: -3rem;

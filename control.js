@@ -232,7 +232,6 @@ startTurn();
 buttonComp.addEventListener("click", function () {
   mode = "computer";
   charFileP2 = "char";
-  P2TokenFrame.style.display = "none";
   backToGame.style.display = "inline-block";
   token2.innerText = "O";
   tokenP2 = "O";
@@ -448,7 +447,7 @@ function showActivePlayer(
     playerFrameX.classList.add(activePlayerX);
     playerFrameY.classList.remove(activePlayerY);
   }
-  
+
 //Ensures that player settings are kept if the machine is refreshed
 function localStorageChangesPlayer(){
     if((JSON.parse(localStorage.getItem("turn")) === "Player1" &&won===false&&draw===false)){
@@ -522,10 +521,10 @@ function checkWinner() {
     won == false
   ) {
     if ((winMatrix[0] === "P1" || winMatrix[0] == tokenP1) && won == false) {
-      winChanges("Player1", P1WinCount, P1Wins, P2LossCount, P2Losses);
+      winChanges("Player 1", P1WinCount, P1Wins, P2LossCount, P2Losses);
     }
     if ((winMatrix[0] == "P2" || winMatrix[0] == tokenP2) && won == false) {
-      winChanges("Player2", P2WinCount, P2Wins, P1LossCount, P1Losses);
+      winChanges("Player 2", P2WinCount, P2Wins, P1LossCount, P1Losses);
     }
   }
 }
