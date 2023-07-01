@@ -3,6 +3,8 @@
 
 ## Description
 
+Tic Tac Toe was an individual project which had the duration of a week. 
+
 This project was created for people who love playing tic tac toe. The game offers the player choices, like playing a regular person or vs a computer opponent. Users also have the option of using a handle or their favourite picture as a token. 
 The player can use the game on tablets and smart phones.  The game works best on modern browsers.
 If a user lives somewhere with a bad internet connection: No worries! The game remembers the progress before the site disconnects. 
@@ -77,12 +79,24 @@ Below is a screenshot of the game:
 - Only one picture could be displayed on the site. To resolve this, an array of pictures was created. This caused another issue, that on continuing to play the pictures in the array could be used up. 
 - To resolve, when the user starts the game if the number of pictures in the array is lower than needed in the game, the picture array is replenished by cloning an image and adding that to the picture array. 
 
+## Wins
+
+The token customisation was the most challenging part and impacted a lot of the coding on the site. It was also unexpected that an image could only be utilised once on the website. Overcoming these challenges and using a file upload functionality was a win for me. 
+Another win was creating an AI opponent as this was something I hadn’t done before. This was tested a lot and found that the AI opponent played correctly. 
+
+
+## Key Learnings
+
+With the token images I would look into a way of not needing an image array. I would investigate cloning as and when an image was needed instead. 
+In relation to the image tokens, I would assign them to the same variable as non-image tokens. This would make the code a lot neater and DRY. 
+
+
 ##  Unsolved Problems / Future Features
 
 - Ensure that customised tokens are added / retrieved from local storage. 
 - Make Einstein the computer player a bit smarter.
 - Going forwards it would be good to make the game playable with two people. 
-- Ko-Fi could be linked to the site so any user who love the game and would like to make a donation can. 
+- Ko-Fi could be linked to the site so any users who love the game and would like to make a donation can. 
 - Create merchandise for superfans of the site. 
 
 
